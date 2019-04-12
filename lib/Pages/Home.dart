@@ -12,7 +12,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   TabController controller;
-  String title = "Chats";
   @override
   void initState() {
     super.initState();
@@ -52,7 +51,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 backgroundColor: KColors.primary,
                 elevation: 0,
                 title: Text(
-                  title,
+                  "Messaging",
                   style: TextStyle(color: KColors.third, fontSize: 22),
                 ),
                 actions: <Widget>[

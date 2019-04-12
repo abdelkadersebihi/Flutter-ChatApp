@@ -11,20 +11,6 @@ class Messages extends StatefulWidget {
 
 class _MessagesState extends State<Messages> {
 
-  ScrollController _scrollController;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _scrollController=new ScrollController(initialScrollOffset: 10,);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,17 +37,17 @@ class _MessagesState extends State<Messages> {
             }
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          elevation: 2,
-          backgroundColor: KColors.secondary,
-          child: Icon(
-            Icons.create,
-            color: KColors.popout,
-          ),
-          onPressed: () {
-            firebaseAuth.signOut();
-          },
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   elevation: 2,
+        //   backgroundColor: KColors.secondary,
+        //   child: Icon(
+        //     Icons.create,
+        //     color: KColors.popout,
+        //   ),
+        //   onPressed: () {
+        //     firebaseAuth.signOut();
+        //   },
+        // ),
       ),
     );
   }

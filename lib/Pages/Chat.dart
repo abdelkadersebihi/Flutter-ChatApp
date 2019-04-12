@@ -16,13 +16,12 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   TextEditingController _controller;
   ScrollController _scrollController;
- double scrolljump=10000.0;
 
   @override
   void initState() {
     super.initState();
     _controller = new TextEditingController();
-    _scrollController = new ScrollController(initialScrollOffset: scrolljump);
+    _scrollController = new ScrollController();
   }
 
   @override
@@ -61,12 +60,6 @@ class _ChatState extends State<Chat> {
                     child: Container(
                       padding: EdgeInsets.all(1),
                       decoration: BoxDecoration(
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                blurRadius: 5,
-                                color: Color.fromRGBO(20, 20, 20, 1),
-                                offset: Offset(0, 2)),
-                          ],
                           gradient: LinearGradient(
                             colors: [KColors.lightPopout, KColors.popout],
                             begin: Alignment.topLeft,
@@ -82,7 +75,7 @@ class _ChatState extends State<Chat> {
                           if (!snapshot.hasData) {
                             return CircleAvatar(
                               backgroundColor: KColors.secondary,
-                              maxRadius: 32,
+                              maxRadius: 30,
                             );
                           } else {
                             return CircleAvatar(
@@ -141,8 +134,31 @@ class _ChatState extends State<Chat> {
                               );
                             } else {
                               return Text(
-                                snapshot.data.documents[0].data["mdate"]
-                                    .toString(),
+                                DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch - snapshot.data.documents[0].data["mdate"]).hour > 1
+                                    ? DateTime.fromMillisecondsSinceEpoch(
+                                                DateTime.now().millisecondsSinceEpoch -
+                                                    snapshot.data.documents[0]
+                                                        .data["mdate"])
+                                            .hour
+                                            .toString() +
+                                        " Hours ago"
+                                    : (DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch - snapshot.data.documents[0].data["mdate"])
+                                                .minute >
+                                            1)
+                                        ? DateTime.fromMillisecondsSinceEpoch(
+                                                    DateTime.now().millisecondsSinceEpoch -
+                                                        snapshot
+                                                            .data
+                                                            .documents[0]
+                                                            .data["mdate"])
+                                                .minute
+                                                .toString() +
+                                            " Minutes ago"
+                                        : "Active",
+                                // TimeOfDay.fromDateTime(snapshot.data.documents[0].data["mdate"]).toString(),
+                                //       DateFormat('dd MMM kk:mm')
+                                // .format(DateTime.fromMillisecondsSinceEpoch(int.parse(
+                                //       snapshot.data.documents[0].data["mdate"]))),
                                 style: TextStyle(color: KColors.fourth),
                               );
                             }
@@ -171,7 +187,7 @@ class _ChatState extends State<Chat> {
                     .collection("Chat")
                     .document(widget.doc.documentID)
                     .collection("Message")
-                    .orderBy("mdate", descending: false)
+                    .orderBy("mdate", descending: true)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -182,6 +198,7 @@ class _ChatState extends State<Chat> {
                     );
                   } else {
                     return ListView.builder(
+                      reverse: true,
                       controller: _scrollController,
                       itemCount: snapshot.data.documents.length,
                       itemBuilder: (context, position) {
@@ -216,39 +233,34 @@ class _ChatState extends State<Chat> {
                   ),
                   Expanded(
                     child: Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          _scrollController.jumpTo(900);
-                        },
-                        child: TextField(
-                          controller: _controller,
-                          cursorWidth: 1,
-                          cursorColor: KColors.popout,
-                          style: TextStyle(color: KColors.third
+                      child: TextField(
+                        controller: _controller,
+                        cursorWidth: 1,
+                        cursorColor: KColors.popout,
+                        style: TextStyle(color: KColors.third
+                            // fontFamily: 'product'
+                            ),
+                        decoration: InputDecoration(
+                            alignLabelWithHint: true,
+                            contentPadding: EdgeInsets.all(
+                                10), //--------------------------------------------
+                            hintText: 'Aa',
+                            hintStyle: TextStyle(
+                              color: KColors.fourth,
                               // fontFamily: 'product'
-                              ),
-                          decoration: InputDecoration(
-                              alignLabelWithHint: true,
-                              contentPadding: EdgeInsets.all(
-                                  10), //--------------------------------------------
-                              hintText: 'Aa',
-                              hintStyle: TextStyle(
-                                color: KColors.fourth,
-                                // fontFamily: 'product'
-                              ),
-                              fillColor: KColors.secondary,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: KColors.popout, width: 1),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: KColors.popout, width: 1),
-                                borderRadius: BorderRadius.circular(30),
-                              )),
-                        ),
+                            ),
+                            fillColor: KColors.secondary,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: KColors.popout, width: 1),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            filled: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: KColors.popout, width: 1),
+                              borderRadius: BorderRadius.circular(30),
+                            )),
                       ),
                     ),
                   ),
@@ -260,8 +272,8 @@ class _ChatState extends State<Chat> {
                         color: KColors.popout,
                       ),
                       onPressed: () {
-                        scrolljump+=50;
-                        _scrollController.jumpTo(scrolljump);
+                        // scrolljump+=50;
+                        // _scrollController.jumpTo(scrolljump);
                         String msg = _controller.text;
                         _controller.clear();
 
@@ -276,6 +288,9 @@ class _ChatState extends State<Chat> {
                             "mdate": DateTime.now().millisecondsSinceEpoch
                           });
                         });
+                        _scrollController.animateTo(0.0,
+                            duration: Duration(milliseconds: 1000),
+                            curve: Curves.bounceInOut);
                       },
                     ),
                   )
@@ -302,11 +317,10 @@ class _ChatState extends State<Chat> {
               ],
               color: KColors.secondary,
               borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(20),
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-                bottomLeft: Radius.circular(4)
-              )),
+                  bottomRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(4))),
           padding: EdgeInsets.all(8),
           margin: EdgeInsets.all(4),
           child:
@@ -328,11 +342,10 @@ class _ChatState extends State<Chat> {
               ],
               color: KColors.popout,
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(4)
-              )),
+                  bottomLeft: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(4))),
           padding: EdgeInsets.all(8),
           margin: EdgeInsets.all(4),
           child:

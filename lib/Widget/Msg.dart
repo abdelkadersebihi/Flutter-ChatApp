@@ -17,52 +17,56 @@ class Msg extends StatelessWidget {
         color: KColors.primary,
         child: InkWell(
           onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (ctx) => Chat(
-                        doc: doc
-                      ))),
-          onLongPress: (){
+              context, MaterialPageRoute(builder: (ctx) => Chat(doc: doc))),
+          onLongPress: () {
             showDialog(
-              context: context,
-              builder: (BuildContext context){
-                return AlertDialog(
-                  backgroundColor: KColors.secondary,
-                  title: Text("Delete conversation",style: TextStyle(color: KColors.third),),
-                  content: Text("delete ever message?",style: TextStyle(color: KColors.third),),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text("Cancel",style: TextStyle(color: KColors.popout),),
-                      onPressed: ()=>Navigator.pop(context),
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    backgroundColor: KColors.secondary,
+                    title: Text(
+                      "Delete conversation",
+                      style: TextStyle(color: KColors.third),
                     ),
-                    FlatButton(
-                      child: Text("Delete",style: TextStyle(color: KColors.lightPopout),),
-                      onPressed: (){
-                        firestore.runTransaction((transactionHandler)async{
-                          await firestore.collection("Chat").document(doc.documentID).delete().then((onValue){
-                            Navigator.pop(context);
+                    content: Text(
+                      "Delete every message?",
+                      style: TextStyle(color: KColors.fourth),
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(color: KColors.popout),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      FlatButton(
+                        child: Text(
+                          "Delete",
+                          style: TextStyle(color: KColors.lightPopout),
+                        ),
+                        onPressed: () {
+                          firestore.runTransaction((transactionHandler) async {
+                            await firestore
+                                .collection("Chat")
+                                .document(doc.documentID)
+                                .delete()
+                                .then((onValue) {
+                              Navigator.pop(context);
+                            });
                           });
-                        });
-                      },
-                    ),
-                  ],
-
-                );
-              }
-            );
+                        },
+                      ),
+                    ],
+                  );
+                });
           },
           child: Row(
             children: <Widget>[
               Container(
                   decoration: BoxDecoration(
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            blurRadius: 5,
-                            color: Color.fromRGBO(20, 20, 20, 1),
-                            offset: Offset(0, 2)),
-                      ],
                       gradient: LinearGradient(
-                        colors: [KColors.lightPopout, KColors.popout],
+                        colors: [KColors.popout, KColors.popout],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -79,13 +83,12 @@ class Msg extends StatelessWidget {
                       if (!snapshot.hasData) {
                         return CircleAvatar(
                           backgroundColor: KColors.secondary,
-                          maxRadius: 35,
+                          maxRadius: 32,
                         );
                       } else {
                         return CircleAvatar(
-                          
                           backgroundImage: NetworkImage(snapshot.data["cimg"]),
-                          // backgroundColor: KColors.primary, 
+                          // backgroundColor: KColors.primary,
                           maxRadius: 35,
                         );
                       }
@@ -114,7 +117,7 @@ class Msg extends StatelessWidget {
                             return Text(
                               snapshot.data["cname"],
                               style:
-                                  TextStyle(color: KColors.third, fontSize: 20),
+                                  TextStyle(color: KColors.third, fontSize: 18),
                               overflow: TextOverflow.ellipsis,
                             );
                           }
@@ -142,7 +145,7 @@ class Msg extends StatelessWidget {
                             return Text(
                               snapshot.data.documents[0].data["mctn"],
                               style: TextStyle(
-                                  color: KColors.fourth, fontSize: 16),
+                                  color: KColors.fourth, fontSize: 12),
                               overflow: TextOverflow.ellipsis,
                             );
                           }
@@ -154,8 +157,49 @@ class Msg extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(right: 18),
-                child: Text("3h",
-                    style: TextStyle(color: KColors.popout, fontSize: 18)),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: firestore
+                      .collection("Chat")
+                      .document(doc.documentID)
+                      .collection("Message")
+                      .orderBy("mdate", descending: true)
+                      .limit(1)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Icon(
+                        Icons.more_horiz,
+                        size: 16,
+                        color: KColors.popout,
+                      );
+                    } else {
+                      return Text(
+                          DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch - snapshot.data.documents[0].data["mdate"]).hour > 1
+                                    ? DateTime.fromMillisecondsSinceEpoch(
+                                                DateTime.now().millisecondsSinceEpoch -
+                                                    snapshot.data.documents[0]
+                                                        .data["mdate"])
+                                            .hour
+                                            .toString() +
+                                        " h"
+                                    : (DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch - snapshot.data.documents[0].data["mdate"])
+                                                .minute >
+                                            1)
+                                        ? DateTime.fromMillisecondsSinceEpoch(
+                                                    DateTime.now().millisecondsSinceEpoch -
+                                                        snapshot
+                                                            .data
+                                                            .documents[0]
+                                                            .data["mdate"])
+                                                .minute
+                                                .toString() +
+                                            " mins ago"
+                                        : "Just now",
+                          style:
+                              TextStyle(color: KColors.popout, fontSize: 12));
+                    }
+                  },
+                ),
               ),
             ],
           ),

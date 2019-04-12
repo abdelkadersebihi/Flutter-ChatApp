@@ -1,3 +1,4 @@
+import 'package:chat_pfe/Util/EditBio.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_pfe/Util/KColors.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
@@ -24,9 +25,10 @@ class _ProfileState extends State<Profile> {
       color: KColors.primary,
       child: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 40),
+              margin: EdgeInsets.only(top: 20),
               child: Center(
                 child: Container(
                     padding: EdgeInsets.all(2),
@@ -100,7 +102,9 @@ class _ProfileState extends State<Profile> {
                     onPressed: ()=> _takePic(ImageSource.gallery),
                   ),
                 )),
-            Container(
+            Column(
+              children: <Widget>[
+                Container(
                 margin: EdgeInsets.only(top: 10),
                 child: StreamBuilder<DocumentSnapshot>(
                   stream: firestore
@@ -142,6 +146,8 @@ class _ProfileState extends State<Profile> {
                 },
               ),
             ),
+              ],
+            ),
             Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -154,22 +160,33 @@ class _ProfileState extends State<Profile> {
                   color: KColors.secondary,
                   borderRadius: BorderRadius.circular(10)),
               margin: EdgeInsets.only(top: 25, left: 70, right: 70),
-              child: StreamBuilder<DocumentSnapshot>(
-                stream: firestore
-                    .collection("User")
-                    .document(widget.firebaseUserId)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Icon(Icons.more_horiz,
-                        size: 28, color: KColors.fourth);
-                  } else {
-                    return Text(
-                      snapshot.data["ubio"],
-                      style: TextStyle(color: KColors.fourth, fontSize: 18),
-                    );
-                  }
-                },
+              child: Container(
+                child: InkWell(
+                  onLongPress:()=> showDialog(
+                    context: context,
+                    builder: (BuildContext contxt){
+                      return new EditBio();
+                    }
+                  ),
+                                  child: StreamBuilder<DocumentSnapshot>(
+                    stream: firestore
+                        .collection("User")
+                        .document(widget.firebaseUserId)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Icon(Icons.more_horiz,
+                            size: 28, color: KColors.fourth);
+                      } else {
+                        return Text(
+                          snapshot.data["ubio"],
+                          style: TextStyle(color: KColors.fourth, fontSize: 18),
+                          textAlign: TextAlign.center,
+                        );
+                      }
+                    },
+                  ),
+                ),
               ),
             ),
             Container(
@@ -177,9 +194,9 @@ class _ProfileState extends State<Profile> {
               child: FlatButton(
                 child: Container(
                   padding: EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: KColors.lightPopout)),
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(8),
+                  //     border: Border.all(color: KColors.lightPopout)),
                   child: Text(
                     "Sign out",
                     style: TextStyle(color: KColors.lightPopout, fontSize: 18),
@@ -218,6 +235,8 @@ class _ProfileState extends State<Profile> {
     StorageTaskSnapshot snapshot=await task.onComplete;
     String url=await snapshot.ref.getDownloadURL();
     return url;
-
   }
 }
+
+
+

@@ -41,7 +41,7 @@ flutter:
 
   assets:
     - assets/bg2.jpeg
-    - assets/bg3.jpeg
+    - assets/bg4.jpeg
 
   fonts:
     - family: Mono

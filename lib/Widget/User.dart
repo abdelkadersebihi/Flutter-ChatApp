@@ -27,12 +27,12 @@ class UserState extends State<User> {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                          blurRadius: 5,
-                          color: Color.fromRGBO(20, 20, 20, 1),
-                          offset: Offset(0, 2)),
-                    ],
+                    // boxShadow: <BoxShadow>[
+                    //   BoxShadow(
+                    //       blurRadius: 5,
+                    //       color: Color.fromRGBO(20, 20, 20, 1),
+                    //       offset: Offset(0, 2)),
+                    // ],
                     gradient: LinearGradient(
                       colors: [KColors.popout, KColors.popout],
                       begin: Alignment.topLeft,
@@ -83,7 +83,7 @@ class UserState extends State<User> {
                         widget.doc.data["uname"] +
                             " " +
                             widget.doc.data["ulastname"],
-                        style: TextStyle(color: KColors.third, fontSize: 20),
+                        style: TextStyle(color: KColors.third, fontSize: 18),
                         overflow: TextOverflow.ellipsis,
                         //     );
                         //   }
@@ -106,7 +106,7 @@ class UserState extends State<User> {
                           //       return
                           Text(
                         widget.doc.data["uemail"],
-                        style: TextStyle(color: KColors.fourth, fontSize: 16),
+                        style: TextStyle(color: KColors.fourth, fontSize: 14),
                         overflow: TextOverflow.ellipsis,
                         //     );
                         //   }
@@ -147,25 +147,10 @@ class UserState extends State<User> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Container(
-            padding: EdgeInsets.all(2),
-            margin: EdgeInsets.only(left: 30, right: 30, top: 70, bottom: 350),
-            decoration: BoxDecoration(color: KColors.secondary),
-            child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                resizeToAvoidBottomPadding: false,
-                backgroundColor: KColors.primary,
-                body: ListView(
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(top: 10, bottom: 8),
-                      child: Text(
-                        "New message:",
-                        style: TextStyle(color: KColors.popout, fontSize: 16),
-                      ),
-                    ),
-                    Container(
+          return AlertDialog(
+            backgroundColor: KColors.primary,
+            title: Text("New message",style: TextStyle(color: KColors.third)),
+            content: Container(
                       padding: EdgeInsets.all(8),
                       child: Form(
                         key: formKey,
@@ -201,23 +186,15 @@ class UserState extends State<User> {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 100, right: 10, top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: Container(
-                              child: Text(
-                                "Cancel",
-                                style: TextStyle(
-                                    color: KColors.fourth, fontSize: 16),
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("Cancel",style: TextStyle(color: KColors.fourth),),
+                        onPressed: ()=>Navigator.pop(context),
+                      ),
+
+                      FlatButton(
+                        child: Text("Send",style: TextStyle(color: KColors.popout),),
+                        onPressed: (){
                               if (formKey.currentState.validate()) {
                                 formKey.currentState.save();
 
@@ -255,23 +232,13 @@ class UserState extends State<User> {
                                 );
                                 Navigator.pop(context);
                               }
-                            },
-                            child: Container(
-                              child: Text(
-                                "Ok",
-                                style: TextStyle(
-                                    color: KColors.popout, fontSize: 16),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                )),
+                        },
+                      )
+                    ],
           );
         });
   }
 
   // Future<void> edit(GlobalKey<FormState> formKey) async {}
 }
+

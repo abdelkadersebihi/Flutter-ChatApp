@@ -1,4 +1,3 @@
-import 'package:chat_pfe/Pages/Chat.dart';
 import 'package:chat_pfe/Widget/User.dart';
 import 'package:chat_pfe/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
