@@ -16,6 +16,7 @@ dependencies:
   outline_material_icons:
   firebase_auth:
   cloud_firestore:
+  url_launcher:
   firebase_storage:
   groovin_material_icons:
   image_picker: ^0.5.3

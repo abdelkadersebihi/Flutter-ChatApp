@@ -43,7 +43,7 @@ class _FriendsState extends State<Friends> {
           elevation: 2,
           backgroundColor: KColors.secondary,
           child: Icon(
-            Icons.search,
+            Icons.share,
             color: KColors.popout,
           ),
           onPressed: () {
@@ -54,5 +54,111 @@ class _FriendsState extends State<Friends> {
     );
   }
 }
+
+
+
+// class Share extends StatefulWidget {
+//   @override
+//   ShareState createState() {
+//     return ShareState();
+//   }
+// }
+
+// class ShareState extends State<Share> {
+//   final formKey = GlobalKey<FormState>();
+//   String bio;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       backgroundColor: KColors.secondary,
+//       title: Text("Share",style: TextStyle(color: KColors.third),),
+//       content: Container(
+//                 padding: EdgeInsets.all(8),
+//                 child: Form(
+//                   key: formKey,
+//                   child: TextFormField(
+//                     onSaved: (input) {
+//                       bio = input;
+//                     },
+//                     validator: (input) {
+//                       if (input.isEmpty) {
+//                         return "type somthing";
+//                       }
+//                     },
+//                     cursorWidth: 1,
+//                     cursorColor: KColors.fourth,
+//                     style: TextStyle(
+//                       color: KColors.third,
+//                     ),
+//                     decoration: InputDecoration(
+//                       contentPadding: EdgeInsets.all(12),
+//                       fillColor: KColors.primary,
+//                       filled: true,
+//                       hintText: 'Aa',
+//                       hintStyle: TextStyle(
+//                         color: KColors.fourth,
+//                       ),
+//                       enabledBorder: OutlineInputBorder(
+//                         borderRadius: BorderRadius.circular(50),
+//                         borderSide: BorderSide(color: KColors.secondary),
+//                       ),
+//                       focusedBorder: OutlineInputBorder(
+//                         borderRadius: BorderRadius.circular(50),
+//                         borderSide: BorderSide(color: KColors.secondary),
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               actions: <Widget>[
+//                 FlatButton(
+//                   onPressed: ()=>Navigator.pop(context),
+//                   child: Text("Cancel",style: TextStyle(
+//                     color:KColors.fourth
+//                   ),
+//                 ),
+//                 ),
+//                 FlatButton(
+//                   onPressed: _share,
+//                   child: Text("Send",style: TextStyle(
+//                     color:KColors.popout
+//                   ),
+//                   ),
+//                 )
+
+//               ],
+//     );
+//   }
+
+//   Future<void> _share() async {
+//     if (formKey.currentState.validate()) {
+//       formKey.currentState.save();
+
+//       firestore.runTransaction((trs) async {
+//         QuerySnapshot users=firestore.collection("User").snapshots();
+//         firestore.collection("Chat").add({"cimg": "url","cparts":firestore.collection("User").snapshots()});
+
+
+
+//         // firestore
+//         //     .collection('User')
+//         //     .document(firebaseUser.uid)
+//         //     .get()
+//         //     .then((DocumentSnapshot snapshot) async {
+//         //   await firestore
+//         //       .collection("User")
+//         //       .document(firebaseUser.uid)
+//         //       .updateData({
+//         //     'ubio': bio,
+//         //   });
+//         // });
+//       });
+//       Navigator.pop(context);
+//     }
+//   }
+// }
+
+
 
 

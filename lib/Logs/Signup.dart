@@ -36,6 +36,7 @@ class _SignupState extends State<Signup> {
                 margin:
                     EdgeInsets.only(top: 18, left: 35, right: 35, bottom: 20),
                 child: Card(
+                  color: Colors.white,
                   elevation: 6,
                   child: Column(
                     children: <Widget>[

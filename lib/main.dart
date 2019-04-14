@@ -7,11 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-
-final baseStorage=FirebaseStorage.instance.ref();
-final StorageReference storage_users=baseStorage.child("User");
-
-
+final baseStorage = FirebaseStorage.instance.ref();
+final StorageReference storage_users = baseStorage.child("User");
 
 FirebaseUser firebaseUser;
 DocumentSnapshot userDocument;
@@ -40,7 +37,10 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Router(),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: KColors.secondary),
+      theme: ThemeData(
+        cardColor: KColors.secondary,
+        primaryColor: KColors.secondary
+        ),
     );
   }
 }

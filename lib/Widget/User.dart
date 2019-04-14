@@ -211,6 +211,7 @@ class UserState extends State<User> {
                                       widget.doc.data["uname"],
                                       userDocument.data["uname"]
                                     ],
+                                    "clastdate":DateTime.now().millisecondsSinceEpoch,
                                     "cimg": "https://firebasestorage.googleapis.com/v0/b/firestore-74deb.appspot.com/o/conv.png?alt=media&token=51c51e26-d527-4f90-97c3-d708d5d90374"
                                   }).then((onValue) async {
                                     await onValue.collection("Message").add({

@@ -287,6 +287,9 @@ class _ChatState extends State<Chat> {
                             "mctn": msg,
                             "mdate": DateTime.now().millisecondsSinceEpoch
                           });
+                          await firestore
+                              .collection("Chat")
+                              .document(widget.doc.documentID).updateData({"clastdate":DateTime.now().millisecondsSinceEpoch});
                         });
                         _scrollController.animateTo(0.0,
                             duration: Duration(milliseconds: 1000),

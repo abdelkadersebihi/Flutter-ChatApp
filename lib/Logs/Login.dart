@@ -45,6 +45,7 @@ class _LoginState extends State<Login> {
                 margin:
                     EdgeInsets.only(top: 45, left: 35, right: 35, bottom: 20),
                 child: Card(
+                  color: Colors.white,
                   elevation: 6,
                   child: Column(
                     children: <Widget>[
@@ -222,7 +223,7 @@ class _LoginState extends State<Login> {
                                   : () async {
                                       setState(() => this._busy = true);
                                       await validate(); 
-                                      // setState(() => this._busy = false);
+                                      await setState(() => this._busy = false);
                                     },
                             borderRadius: BorderRadius.circular(30),
                             child: Container(
@@ -342,6 +343,23 @@ class _LoginState extends State<Login> {
       key.currentState.save();
       await firebaseAuth
           .signInWithEmailAndPassword(email: _email, password: _password).then((onValue){
+          }).catchError((onError){
+            showDialog(
+              context: context,
+              builder: (BuildContext ctx){
+                return AlertDialog(
+                  title: Text("Ops! Something went wrong..",),
+                  content:Text("Having Trubble signing with this email or password..!",maxLines: 3,),
+                  //  Text(onError.toString(),maxLines: 3,overflow: TextOverflow.ellipsis,),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("Retry"),
+                      onPressed: ()=>Navigator.pop(context)
+                    )
+                  ],
+                );
+              }
+            );
           });
     }
   }
