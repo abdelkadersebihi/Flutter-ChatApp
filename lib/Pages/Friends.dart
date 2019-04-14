@@ -30,7 +30,9 @@ class _FriendsState extends State<Friends> {
               return ListView.builder(
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context,position){
-                  print(snapshot.data.documents.length);
+                  if(snapshot.data.documents[position].documentID==firebaseUser.uid)
+                  return Container();
+                  else
                   return User(
                     doc: snapshot.data.documents[position],
                   );
