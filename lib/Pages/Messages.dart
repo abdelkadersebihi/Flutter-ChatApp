@@ -30,6 +30,8 @@ class _MessagesState extends State<Messages> {
               return ListView.builder(
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, position) {
+                  if(snapshot.data.documents[position].documentID==firebaseUser.uid)
+                  return Container();
                   return Msg(
                     doc: snapshot.data.documents[position],
                   );
