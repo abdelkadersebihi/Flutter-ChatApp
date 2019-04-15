@@ -198,7 +198,7 @@ class UserState extends State<User> {
                               if (formKey.currentState.validate()) {
                                 formKey.currentState.save();
 
-                                Firestore.instance.runTransaction((trs) async {
+                                  firestore.runTransaction((trs) async {
                                   await firestore.collection('Chat').add({
                                     "cname": widget.doc.data["uname"] +
                                         " and " +

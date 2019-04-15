@@ -12,6 +12,7 @@ class Messages extends StatefulWidget {
 class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
+    print(firebaseUser.uid);
     return Container(
       child: Scaffold(
         backgroundColor: KColors.primary,
@@ -19,13 +20,12 @@ class _MessagesState extends State<Messages> {
           stream: firestore
               .collection("Chat")
               .where("cparts", arrayContains: firebaseUser.uid)
-              .orderBy("clastdate", descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
-                child: Text("No chats yet",style: TextStyle(color: KColors.fourth))
-              );
+                  child: Text("No chats yet",
+                      style: TextStyle(color: KColors.fourth)));
             } else {
               return ListView.builder(
                 itemCount: snapshot.data.documents.length,
