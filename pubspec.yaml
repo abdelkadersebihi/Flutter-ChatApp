@@ -16,9 +16,11 @@ dependencies:
   outline_material_icons:
   firebase_auth:
   cloud_firestore:
+  curved_navigation_bar: ^0.2.1 
   url_launcher:
   firebase_storage:
   groovin_material_icons:
+  line_icons: ^0.2.0
   image_picker: ^0.5.3
 
   flutter:

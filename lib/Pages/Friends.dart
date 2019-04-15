@@ -41,17 +41,17 @@ class _FriendsState extends State<Friends> {
             }
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          elevation: 2,
-          backgroundColor: KColors.secondary,
-          child: Icon(
-            Icons.share,
-            color: KColors.popout,
-          ),
-          onPressed: () {
-            firebaseAuth.signOut();
-          },
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   elevation: 2,
+        //   backgroundColor: KColors.secondary,
+        //   child: Icon(
+        //     Icons.share,
+        //     color: KColors.popout,
+        //   ),
+        //   onPressed: () {
+        //     firebaseAuth.signOut();
+        //   },
+        // ),
       ),
     );
   }

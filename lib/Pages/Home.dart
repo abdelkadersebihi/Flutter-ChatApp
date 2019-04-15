@@ -8,6 +8,8 @@ import 'package:chat_pfe/Util/KColors.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:line_icons/line_icons.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,12 +17,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  TabController controller;
+  PageController controller;
   int selected = 0;
+  String title = "Chating";
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: 3, initialIndex: 1);
+    controller = new PageController();
   }
 
   @override
@@ -61,7 +64,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 backgroundColor: KColors.primary,
                 elevation: 0,
                 title: Text(
-                  "Messaging",
+                  title,
                   style: TextStyle(color: KColors.third, fontSize: 22),
                 ),
                 actions: <Widget>[
@@ -89,18 +92,20 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     itemBuilder: (context) {
                       return [
                         PopupMenuItem(
-                          value: 0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                "Settings",
-                                style: TextStyle(color: KColors.fourth),
-                              ),
-                              Icon(OMIcons.settings, color: KColors.popout)
-                            ],
-                          ),
-                        ),
+                            value: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  "Account",
+                                  style: TextStyle(color: KColors.third),
+                                ),
+                                Icon(
+                                  LineIcons.refresh,
+                                  color: KColors.fourth,
+                                )
+                              ],
+                            )),
                         PopupMenuItem(
                             value: 1,
                             child: Row(
@@ -108,9 +113,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               children: <Widget>[
                                 Text(
                                   "About",
-                                  style: TextStyle(color: KColors.fourth),
+                                  style: TextStyle(color: KColors.third),
                                 ),
-                                Icon(OMIcons.info, color: Colors.yellow)
+                                Icon(
+                                  LineIcons.info_circle,
+                                  color: KColors.fourth,
+                                  size: 22,
+                                )
                               ],
                             )),
                         PopupMenuItem(
@@ -120,11 +129,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               children: <Widget>[
                                 Text(
                                   "Help",
-                                  style: TextStyle(color: KColors.fourth),
+                                  style: TextStyle(color: KColors.third),
                                 ),
                                 Icon(
-                                  OMIcons.helpOutline,
-                                  color: KColors.lightPopout,
+                                  LineIcons.question_circle,
+                                  color: KColors.fourth,
                                 )
                               ],
                             )),
@@ -135,9 +144,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               children: <Widget>[
                                 Text(
                                   "Github",
-                                  style: TextStyle(color: KColors.fourth),
+                                  style: TextStyle(color: KColors.third),
                                 ),
-                                Icon(OMIcons.share, color: Colors.green)
+                                Icon(LineIcons.share, color: KColors.fourth)
                               ],
                             )),
                       ];
@@ -145,46 +154,75 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   )
                 ],
               ),
-              body: TabBarView(
+              body: PageView(
+                physics: NeverScrollableScrollPhysics(),
+                // onPageChanged: (index) {
+                //   setState(() {
+                //    switch (index) {
+                //     case 0:
+                //      title="Profile";
+                //       break;
+                //     case 1:
+                //      title="Chats";
+                //       break;
+                //     case 2:
+                //      title="Search";
+                //       break;
+                //     case 3:
+                //      title="Contacts";
+                //       break;
+                //     default:
+                //   }
+                //   });
+                // },
                 controller: controller,
                 children: <Widget>[
                   Profile(
                     firebaseUserId: firebaseUser.uid,
                   ),
                   Messages(),
+                  Container(
+                    color: KColors.primary,
+                  ),
                   Friends(),
                 ],
               ),
-              bottomNavigationBar: Container(
-                color: KColors.primary,
-                child: TabBar(
-                  controller: controller,
-                  indicatorColor: KColors.primary,
-                  tabs: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(left: 40),
-                      child: Tab(
-                        icon: Icon(
-                          OMIcons.person,
-                          color: KColors.fourth,
-                          size: 28,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Tab(
-                        icon: Icon(OMIcons.home, color: KColors.fourth, size: 28),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 40),
-                      child: Tab(
-                        icon:
-                            Icon(OMIcons.group, color: KColors.fourth, size: 28),
-                      ),
-                    ),
-                  ],
-                ),
+              bottomNavigationBar: CurvedNavigationBar(
+                height: 54,
+                backgroundColor: KColors.primary,
+                buttonBackgroundColor: KColors.secondary,
+                color: KColors.secondary,
+                items: <Widget>[
+                  Icon(
+                    LineIcons.user,
+                    size: 26,
+                    color: KColors.third,
+                  ),
+                  Icon(
+                    LineIcons.home,
+                    size: 24,
+                    color: KColors.third,
+                  ),
+                  Icon(
+                    LineIcons.search,
+                    size: 26,
+                    color: KColors.third,
+                  ),
+                  Icon(
+                    LineIcons.group,
+                    size: 26,
+                    color: KColors.third,
+                  ),
+                ],
+                animationDuration: Duration(milliseconds: 1000),
+                animationCurve: Curves.linearToEaseOut,
+                onTap: (index) {
+                  //Handle button tap
+                  // controller.jumpToPage(index);
+                  controller.animateToPage(index,
+                      duration: Duration(milliseconds: 1000),
+                      curve: Curves.ease);
+                },
               ),
             ),
           );
@@ -208,7 +246,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 Center(
                   child: ListTile(
                     leading: Icon(
-                      Icons.refresh,
+                      LineIcons.refresh,
                       color: KColors.popout,
                     ),
                     title: Text("Rest password",
@@ -216,9 +254,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     onTap: () {
                       // Navigator.pop(context);
                       showDialog(
-                        context: context,
-                        builder: (BuildContext context)=>new EditPassword()
-                      );
+                          context: context,
+                          builder: (BuildContext context) =>
+                              new EditPassword());
                     },
                   ),
                 ),
@@ -282,18 +320,22 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: KColors.primary,
-            title: Text("About Project: chat_App!",style: TextStyle(color: KColors.third)),
+            title: Text("About Project: chat_App!",
+                style: TextStyle(color: KColors.third)),
             content: Text(
-                "Products used Flutter & Firebase Paticipants: Sebihi Abdelkader & Merouani Abdenour thank you",
-                textAlign: TextAlign.center,
-                  style: TextStyle(color: KColors.fourth),
+              "Products used Flutter & Firebase Paticipants: Sebihi Abdelkader & Merouani Abdenour thank you",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: KColors.fourth),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  "Ok",
+                  style: TextStyle(color: KColors.popout),
                 ),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text("Ok",style: TextStyle(color: KColors.popout),),
-                    onPressed: ()=>Navigator.pop(context),
-                  )
-                ],
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
           );
         });
   }
@@ -304,34 +346,34 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: KColors.primary,
-            title: Text("Help:",style: TextStyle(color: KColors.third)),
+            title: Text("Help:", style: TextStyle(color: KColors.third)),
             content: Text(
-                "You can now go to Contancts List then press on a Random contact to stat a conversation, Enjoy!",
-                textAlign: TextAlign.center,
-                  style: TextStyle(color: KColors.fourth),
+              "You can now go to Contancts List then press on a Random contact to stat a conversation, Enjoy!",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: KColors.fourth),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  "Great!",
+                  style: TextStyle(color: KColors.popout),
                 ),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text("Great!",style: TextStyle(color: KColors.popout),),
-                    onPressed: ()=>Navigator.pop(context),
-                  )
-                ],
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
           );
         });
   }
 
-  void _showGithubDialog() async{
+  void _showGithubDialog() async {
     const url = 'https://github.com/aymensbh/chat_app_flutter_firebase';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
-
-
-
 
 class EditPassword extends StatefulWidget {
   @override
@@ -348,69 +390,72 @@ class EditPasswordState extends State<EditPassword> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: KColors.secondary,
-      title: Text("Reset password",style: TextStyle(color: KColors.third),),
+      title: Text(
+        "Reset password",
+        style: TextStyle(color: KColors.third),
+      ),
       content: Container(
-                padding: EdgeInsets.all(8),
-                child: Form(
-                  key: formKey,
-                  child: TextFormField(
-                    onSaved: (input) {
-                      _password = input;
-                    },
-                    validator: (input) {
-                      if (input.length<6) {
-                        return "provide more than 6 characters";
-                      }
-                    },
-                    cursorWidth: 1,
-                    cursorColor: KColors.fourth,
-                    style: TextStyle(
-                      color: KColors.third,
-                    ),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(12),
-                      fillColor: KColors.primary,
-                      filled: true,
-                      hintText: 'Aa',
-                      hintStyle: TextStyle(
-                        color: KColors.fourth,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: KColors.secondary),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: KColors.secondary),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: KColors.lightPopout),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: KColors.secondary),
-                      ),
-                    ),
-                  ),
-                ),
+        padding: EdgeInsets.all(8),
+        child: Form(
+          key: formKey,
+          child: TextFormField(
+            onSaved: (input) {
+              _password = input;
+            },
+            validator: (input) {
+              if (input.length < 6) {
+                return "provide more than 6 characters";
+              }
+            },
+            cursorWidth: 1,
+            cursorColor: KColors.fourth,
+            style: TextStyle(
+              color: KColors.third,
+            ),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(12),
+              fillColor: KColors.primary,
+              filled: true,
+              hintText: 'Aa',
+              hintStyle: TextStyle(
+                color: KColors.fourth,
               ),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: ()=>Navigator.pop(context),
-                  child: Text("Cancel",style: TextStyle(
-                    color:KColors.fourth
-                  ),
-                ),
-                ),
-                FlatButton(
-                  onPressed: edit,
-                  child: Text("Reset",style: TextStyle(
-                    color:KColors.popout
-                  ),
-                  ),
-                )
-              ],
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide(color: KColors.secondary),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide(color: KColors.secondary),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide(color: KColors.lightPopout),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide(color: KColors.secondary),
+              ),
+            ),
+          ),
+        ),
+      ),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(
+            "Cancel",
+            style: TextStyle(color: KColors.fourth),
+          ),
+        ),
+        FlatButton(
+          onPressed: edit,
+          child: Text(
+            "Reset",
+            style: TextStyle(color: KColors.popout),
+          ),
+        )
+      ],
     );
   }
 
@@ -431,7 +476,7 @@ class EditPasswordState extends State<EditPassword> {
             'upassword': _password,
           });
         });
-        await firebaseUser.updatePassword(_password).then((onValue){
+        await firebaseUser.updatePassword(_password).then((onValue) {
           firebaseAuth.signOut();
         });
       });
@@ -439,5 +484,3 @@ class EditPasswordState extends State<EditPassword> {
     }
   }
 }
-
-

@@ -383,12 +383,13 @@ class _SignupState extends State<Signup> {
                   margin: EdgeInsets.only(top: 8),
                   child: IconButton(
                       icon: Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_upward,
                         color: Colors.white,
                         size: 30,
                       ),
-                      onPressed: () => Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Login())))),
+                      onPressed: () => pagecontroller.animateToPage(0,
+                          curve: Curves.ease,
+                          duration: Duration(milliseconds: 1600)))),
             ],
           ),
         ));
@@ -415,24 +416,27 @@ class _SignupState extends State<Signup> {
           });
         });
         Navigator.pop(context);
-      }).catchError((onError){
-            showDialog(
-              context: context,
-              builder: (BuildContext ctx){
-                return AlertDialog(
-                  title: Text("Ops! Something went wrong..",),
-                  content:Text("Having Trubble signing up with this email or password..!",maxLines: 3,),
-                  //  Text(onError.toString(),maxLines: 3,overflow: TextOverflow.ellipsis,),
-                  actions: <Widget>[
-                    FlatButton(
+      }).catchError((onError) {
+        showDialog(
+            context: context,
+            builder: (BuildContext ctx) {
+              return AlertDialog(
+                title: Text(
+                  "Ops! Something went wrong..",
+                ),
+                content: Text(
+                  "Having Trubble signing up with this email or password..!",
+                  maxLines: 3,
+                ),
+                //  Text(onError.toString(),maxLines: 3,overflow: TextOverflow.ellipsis,),
+                actions: <Widget>[
+                  FlatButton(
                       child: Text("Retry"),
-                      onPressed: ()=>Navigator.pop(context)
-                    )
-                  ],
-                );
-              }
-            );
-          });
+                      onPressed: () => Navigator.pop(context))
+                ],
+              );
+            });
+      });
     }
   }
 }
