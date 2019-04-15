@@ -165,22 +165,22 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       padding: EdgeInsets.only(left: 40),
                       child: Tab(
                         icon: Icon(
-                          Icons.person,
+                          OMIcons.person,
                           color: KColors.fourth,
-                          size: 30,
+                          size: 28,
                         ),
                       ),
                     ),
                     Container(
                       child: Tab(
-                        icon: Icon(Icons.home, color: KColors.fourth, size: 30),
+                        icon: Icon(OMIcons.home, color: KColors.fourth, size: 28),
                       ),
                     ),
                     Container(
                       padding: EdgeInsets.only(right: 40),
                       child: Tab(
                         icon:
-                            Icon(Icons.group, color: KColors.fourth, size: 30),
+                            Icon(OMIcons.group, color: KColors.fourth, size: 28),
                       ),
                     ),
                   ],
