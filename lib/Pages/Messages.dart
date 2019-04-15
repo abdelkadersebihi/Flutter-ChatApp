@@ -5,10 +5,6 @@ import 'package:chat_pfe/Util/KColors.dart';
 import 'package:chat_pfe/Widget/Msg.dart';
 
 class Messages extends StatefulWidget {
-  final DocumentSnapshot doc;
-
-  const Messages({Key key, this.doc}) : super(key: key);
-
   @override
   _MessagesState createState() => _MessagesState();
 }
@@ -22,7 +18,7 @@ class _MessagesState extends State<Messages> {
         body: StreamBuilder<QuerySnapshot>(
           stream: firestore
               .collection("Chat")
-              .where("cparts", arrayContains: widget.doc.documentID)
+              .where("cparts", arrayContains: firebaseUser.uid)
               .orderBy("clastdate", descending: true)
               .snapshots(),
           builder: (context, snapshot) {
