@@ -415,9 +415,24 @@ class _SignupState extends State<Signup> {
           });
         });
         Navigator.pop(context);
-      }).catchError((error) {
-        print(error);
-      });
+      }).catchError((onError){
+            showDialog(
+              context: context,
+              builder: (BuildContext ctx){
+                return AlertDialog(
+                  title: Text("Ops! Something went wrong..",),
+                  content:Text("Having Trubble signing up with this email or password..!",maxLines: 3,),
+                  //  Text(onError.toString(),maxLines: 3,overflow: TextOverflow.ellipsis,),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("Retry"),
+                      onPressed: ()=>Navigator.pop(context)
+                    )
+                  ],
+                );
+              }
+            );
+          });
     }
   }
 }
