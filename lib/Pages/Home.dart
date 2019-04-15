@@ -177,10 +177,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 // },
                 controller: controller,
                 children: <Widget>[
+                  Messages(),
                   Profile(
                     firebaseUserId: firebaseUser.uid,
                   ),
-                  Messages(),
+                  
                   Container(
                     color: KColors.primary,
                   ),
@@ -366,7 +367,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void _showGithubDialog() async {
-    const url = 'https://github.com/aymensbh/chat_app_flutter_firebase';
+    const url = 'https://github.com/aymensbh/Flutter-ChatApp';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
