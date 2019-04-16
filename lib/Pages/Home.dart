@@ -178,39 +178,38 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 controller: controller,
                 children: <Widget>[
                   Messages(),
-                  Profile(
-                    firebaseUserId: firebaseUser.uid,
-                  ),
-                  
                   Container(
                     color: KColors.primary,
                   ),
                   Friends(),
+                  Profile(
+                    firebaseUserId: firebaseUser.uid,
+                  ),
                 ],
               ),
               bottomNavigationBar: CurvedNavigationBar(
                 height: 54,
                 backgroundColor: KColors.primary,
-                buttonBackgroundColor: KColors.secondary,
+                buttonBackgroundColor: KColors.popout,
                 color: KColors.secondary,
                 items: <Widget>[
                   Icon(
-                    LineIcons.user,
-                    size: 26,
-                    color: KColors.third,
-                  ),
-                  Icon(
                     LineIcons.home,
-                    size: 24,
+                    size: 26,
                     color: KColors.third,
                   ),
                   Icon(
                     LineIcons.search,
-                    size: 26,
+                    size: 24,
                     color: KColors.third,
                   ),
                   Icon(
                     LineIcons.group,
+                    size: 26,
+                    color: KColors.third,
+                  ),
+                  Icon(
+                    LineIcons.user,
                     size: 26,
                     color: KColors.third,
                   ),
