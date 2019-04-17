@@ -8,6 +8,7 @@ import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Profile extends StatefulWidget {
   final String firebaseUserId;
@@ -63,6 +64,7 @@ class _ProfileState extends State<Profile> {
                             ),
                           );
                         } else {
+                          ImageProvider provider=CachedNetworkImageProvider(snapshot.data["uimg"]);
                           return GestureDetector(
                             onTap: () => Navigator.push(
                                 context,
@@ -72,8 +74,7 @@ class _ProfileState extends State<Profile> {
                                           body: Hero(
                                             tag: "hero",
                                             child: Center(
-                                              child: Image.network(
-                                                  snapshot.data["uimg"]),
+                                              child: Image(image: provider,),
                                             ),
                                           ),
                                         ))),
@@ -81,7 +82,7 @@ class _ProfileState extends State<Profile> {
                               tag: "hero",
                               child: CircleAvatar(
                                 backgroundImage:
-                                    NetworkImage(snapshot.data["uimg"]),
+                                    provider,
                                 maxRadius: 100,
                               ),
                             ),
@@ -212,13 +213,30 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _signOut() async {
+    // BuildContext dialogCtx;
+    // showDialog(
+    //       context: context,
+    //       builder: (dcontext) {
+    //         dialogCtx = dcontext;
+    //         return AlertDialog(
+    //           title: Text("Loading.."),
+    //           content: Container(
+    //             child: Center(
+    //                         child: CircularProgressIndicator(
+    //                       strokeWidth: 2,
+    //                     )),
+    //           ),
+    //         );
+    //       });
     firestore.runTransaction((transactionHandler) async {
       await firestore
           .collection("User")
           .document(widget.firebaseUserId)
           .updateData({"utag": false});
     });
-    await firebaseAuth.signOut();
+    await firebaseAuth.signOut().then((onValue){
+      // Navigator.of(dialogCtx).pop(true);
+    });
   }
 
   Future<void> _takePic(ImageSource source) async {

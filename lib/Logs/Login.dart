@@ -351,7 +351,6 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       FlatButton(
-
                           onPressed: this._busy
                               ? null
                               : () async {
@@ -378,12 +377,29 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> validate() async {
+    BuildContext dialogCtx;
     if (key.currentState.validate()) {
       key.currentState.save();
+      showDialog(
+          context: context,
+          builder: (dcontext) {
+            dialogCtx = dcontext;
+            return AlertDialog(
+              title: Text("Loading.."),
+              content: Container(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
+              ),
+            );
+          });
       await firebaseAuth
           .signInWithEmailAndPassword(email: _email, password: _password)
-          .then((onValue) {})
-          .catchError((onError) {
+          .then((onValue) {
+        Navigator.of(dialogCtx).pop(true);
+      }).catchError((onError) {
+        Navigator.of(dialogCtx).pop(true);
         showDialog(
             context: context,
             builder: (BuildContext ctx) {
