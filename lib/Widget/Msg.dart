@@ -44,12 +44,12 @@ class Msg extends StatelessWidget {
                       FlatButton(
                         child: Text(
                           "Delete",
-                          style: TextStyle(color: KColors.lightPopout),
+                          style: TextStyle(color: KColors.lightPopout,),
                         ),
                         onPressed: () {
                           firestore.runTransaction((transactionHandler) async {
                             await firestore
-                                .collection("Chat")
+                                .collection("Chat") 
                                 .document(doc.documentID)
                                 .delete()
                                 .then((onValue) {
