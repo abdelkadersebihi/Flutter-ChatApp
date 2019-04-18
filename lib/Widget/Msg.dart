@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_pfe/Pages/Chat.dart';
 import 'package:chat_pfe/Util/KColors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Msg extends StatelessWidget {
   final DocumentSnapshot doc;
@@ -65,11 +66,18 @@ class Msg extends StatelessWidget {
             children: <Widget>[
               Container(
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [KColors.popout, KColors.popout],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
+                    gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: <Color>[
+                                  Color.fromRGBO(76, 184, 196, 1),
+                                  Color.fromRGBO(60, 211, 173, 1)
+                                ]),
+                      // gradient: LinearGradient(
+                      //   colors: [KColors.popout, KColors.popout],
+                      //   begin: Alignment.topLeft,
+                      //   end: Alignment.bottomRight,
+                      // ),
                       borderRadius: BorderRadius.circular(40)),
                   padding: EdgeInsets.all(1),
                   margin:
@@ -83,13 +91,13 @@ class Msg extends StatelessWidget {
                       if (!snapshot.hasData) {
                         return CircleAvatar(
                           backgroundColor: KColors.secondary,
-                          maxRadius: 32,
+                          maxRadius: 28,
                         );
                       } else {
                         return CircleAvatar(
-                          backgroundImage: NetworkImage(snapshot.data["cimg"]),
+                          backgroundImage: CachedNetworkImageProvider(snapshot.data["cimg"],),
                           // backgroundColor: KColors.primary,
-                          maxRadius: 35,
+                          maxRadius: 32,
                         );
                       }
                     },
@@ -100,7 +108,7 @@ class Msg extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(left: 8),
+                      margin: EdgeInsets.only(left: 8,bottom: 2),
                       child: StreamBuilder<DocumentSnapshot>(
                         stream: firestore
                             .collection("Chat")
@@ -125,7 +133,7 @@ class Msg extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 8),
+                      margin: EdgeInsets.only(left: 8,top: 2),
                       child: StreamBuilder<QuerySnapshot>(
                         stream: firestore
                             .collection("Chat")

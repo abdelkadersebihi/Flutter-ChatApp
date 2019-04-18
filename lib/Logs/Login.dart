@@ -384,14 +384,19 @@ class _LoginPageState extends State<LoginPage> {
           context: context,
           builder: (dcontext) {
             dialogCtx = dcontext;
-            return AlertDialog(
+            return SimpleDialog(
               title: Text("Loading.."),
-              content: Container(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                ),
-              ),
+              titlePadding: EdgeInsets.all(8),
+              contentPadding: EdgeInsets.all(12),
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 20,bottom: 20),
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ),
+                )
+              ],
             );
           });
       await firebaseAuth

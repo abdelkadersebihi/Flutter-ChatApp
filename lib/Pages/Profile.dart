@@ -32,14 +32,15 @@ class _ProfileState extends State<Profile> {
               margin: EdgeInsets.only(top: 20),
               child: Center(
                 child: Container(
-                    padding: EdgeInsets.all(2),
+                    padding: EdgeInsets.all(1),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(110),
-                      gradient: LinearGradient(
-                        colors: [KColors.lightPopout, KColors.popout],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
+                      color: KColors.popout,
+                      // gradient: LinearGradient(
+                      //   colors: [KColors.lightPopout, KColors.popout],
+                      //   begin: Alignment.topCenter,
+                      //   end: Alignment.bottomCenter,
+                      // ),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                             blurRadius: 5,
@@ -64,7 +65,6 @@ class _ProfileState extends State<Profile> {
                             ),
                           );
                         } else {
-                          ImageProvider provider=CachedNetworkImageProvider(snapshot.data["uimg"]);
                           return GestureDetector(
                             onTap: () => Navigator.push(
                                 context,
@@ -74,18 +74,40 @@ class _ProfileState extends State<Profile> {
                                           body: Hero(
                                             tag: "hero",
                                             child: Center(
-                                              child: Image(image: provider,),
-                                            ),
+                                                child: CachedNetworkImage(
+                                              imageUrl: snapshot.data["uimg"],
+                                              placeholder: (context, url) {
+                                                return CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                );
+                                              },
+                                            )),
                                           ),
                                         ))),
                             child: Hero(
-                              tag: "hero",
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    provider,
-                                maxRadius: 100,
-                              ),
-                            ),
+                                tag: "hero",
+                                child: Container(
+                                    padding: EdgeInsets.all(2),
+                                    width: 180,
+                                    height: 180,
+                                    decoration: BoxDecoration(
+                                        // borderRadius: BorderRadius.circular(200)
+                                        // border: Border.all(co)
+                                        ),
+                                    alignment: Alignment.center,
+                                    child: CircleAvatar(
+                                      maxRadius: 180,
+                                      backgroundImage: CachedNetworkImageProvider(snapshot.data["uimg"]),
+                                      // child: CachedNetworkImage(
+                                      //   fit: BoxFit.cover,
+                                      //   imageUrl: snapshot.data["uimg"],
+                                      //   placeholder: (crx, url) {
+                                      //     return CircularProgressIndicator(
+                                      //       strokeWidth: 2,
+                                      //     );
+                                      //   },
+                                      // ),
+                                    ))),
                           );
                         }
                       },
@@ -100,76 +122,76 @@ class _ProfileState extends State<Profile> {
                       OMIcons.addAPhoto,
                       color: KColors.popout,
                     ),
-                    onPressed: ()=> _takePic(ImageSource.gallery),
+                    onPressed: () => _takePic(ImageSource.gallery),
                   ),
                 )),
             Column(
               children: <Widget>[
                 Container(
-                margin: EdgeInsets.only(top: 10),
-                child: StreamBuilder<DocumentSnapshot>(
-                  stream: firestore
-                      .collection("User")
-                      .document(widget.firebaseUserId)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Icon(Icons.more_horiz,
-                          size: 40, color: KColors.third);
-                    } else {
-                      return Text(
-                        snapshot.data["uname"] +
-                            " " +
-                            snapshot.data["ulastname"],
-                        style: TextStyle(color: KColors.third, fontSize: 24),
-                      );
-                    }
-                  },
-                )),
-            Container(
-              margin: EdgeInsets.only(top: 8),
-              child: StreamBuilder<DocumentSnapshot>(
-                stream: firestore
-                    .collection("User")
-                    .document(widget.firebaseUserId)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Icon(Icons.more_horiz,
-                        size: 28, color: KColors.fourth);
-                  } else {
-                    return Text(
-                      snapshot.data["uemail"],
-                      style: TextStyle(color: KColors.fourth, fontSize: 16),
-                      overflow: TextOverflow.ellipsis,
-                    );
-                  }
-                },
-              ),
-            ),
+                    margin: EdgeInsets.only(top: 10),
+                    child: StreamBuilder<DocumentSnapshot>(
+                      stream: firestore
+                          .collection("User")
+                          .document(widget.firebaseUserId)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Icon(Icons.more_horiz,
+                              size: 40, color: KColors.third);
+                        } else {
+                          return Text(
+                            snapshot.data["uname"] +
+                                " " +
+                                snapshot.data["ulastname"],
+                            style:
+                                TextStyle(color: KColors.third, fontSize: 24),
+                          );
+                        }
+                      },
+                    )),
+                Container(
+                  margin: EdgeInsets.only(top: 8),
+                  child: StreamBuilder<DocumentSnapshot>(
+                    stream: firestore
+                        .collection("User")
+                        .document(widget.firebaseUserId)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Icon(Icons.more_horiz,
+                            size: 28, color: KColors.fourth);
+                      } else {
+                        return Text(
+                          snapshot.data["uemail"],
+                          style: TextStyle(color: KColors.fourth, fontSize: 16),
+                          overflow: TextOverflow.ellipsis,
+                        );
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
             Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        blurRadius: 5,
-                        color: Color.fromRGBO(20, 20, 20, 1),
-                        offset: Offset(0, 2)),
-                  ],
+                  // boxShadow: <BoxShadow>[
+                  //   BoxShadow(
+                  //       blurRadius: 5,
+                  //       color: Color.fromRGBO(20, 20, 20, 1),
+                  //       offset: Offset(0, 2)),
+                  // ],
                   color: KColors.secondary,
                   borderRadius: BorderRadius.circular(10)),
               margin: EdgeInsets.only(top: 25, left: 70, right: 70),
               child: Container(
                 child: InkWell(
-                  onLongPress:()=> showDialog(
-                    context: context,
-                    builder: (BuildContext contxt){
-                      return new EditBio();
-                    }
-                  ),
-                                  child: StreamBuilder<DocumentSnapshot>(
+                  onLongPress: () => showDialog(
+                      context: context,
+                      builder: (BuildContext contxt) {
+                        return new EditBio();
+                      }),
+                  child: StreamBuilder<DocumentSnapshot>(
                     stream: firestore
                         .collection("User")
                         .document(widget.firebaseUserId)
@@ -194,7 +216,17 @@ class _ProfileState extends State<Profile> {
               margin: EdgeInsets.only(top: 20),
               child: FlatButton(
                 child: Container(
-                  padding: EdgeInsets.all(4),
+                  padding: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            blurRadius: 5,
+                            color: Color.fromRGBO(20, 20, 20, 1),
+                            offset: Offset(0, 2)),
+                      ],
+                    color: KColors.secondary  
+                  ),
                   // decoration: BoxDecoration(
                   //     borderRadius: BorderRadius.circular(8),
                   //     border: Border.all(color: KColors.lightPopout)),
@@ -234,7 +266,7 @@ class _ProfileState extends State<Profile> {
           .document(widget.firebaseUserId)
           .updateData({"utag": false});
     });
-    await firebaseAuth.signOut().then((onValue){
+    await firebaseAuth.signOut().then((onValue) {
       // Navigator.of(dialogCtx).pop(true);
     });
   }
@@ -242,19 +274,18 @@ class _ProfileState extends State<Profile> {
   Future<void> _takePic(ImageSource source) async {
     File image = await ImagePicker.pickImage(
         source: source, maxWidth: 500, maxHeight: 500);
-        _savePic(image, storage_users.child(widget.firebaseUserId)).then((onValue){
-          firestore.collection("User").document(widget.firebaseUserId).updateData({"uimg":onValue});
-        });
-
+    _savePic(image, storage_users.child(widget.firebaseUserId)).then((onValue) {
+      firestore
+          .collection("User")
+          .document(widget.firebaseUserId)
+          .updateData({"uimg": onValue});
+    });
   }
 
-  Future<String> _savePic(File file,StorageReference storage)async{
-    StorageUploadTask task=storage.putFile(file);
-    StorageTaskSnapshot snapshot=await task.onComplete;
-    String url=await snapshot.ref.getDownloadURL();
+  Future<String> _savePic(File file, StorageReference storage) async {
+    StorageUploadTask task = storage.putFile(file);
+    StorageTaskSnapshot snapshot = await task.onComplete;
+    String url = await snapshot.ref.getDownloadURL();
     return url;
   }
 }
-
-
-

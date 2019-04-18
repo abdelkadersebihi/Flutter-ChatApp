@@ -38,9 +38,11 @@ class MyAppState extends State<MyApp> {
       home: Router(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        cardColor: KColors.secondary,
-        primaryColor: KColors.secondary
-        ),
+          cardColor: KColors.secondary,
+          primaryColor: KColors.secondary,
+          accentColor: KColors.primary,
+          backgroundColor: KColors.secondary
+          ),
     );
   }
 }

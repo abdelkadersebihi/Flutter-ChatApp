@@ -420,22 +420,22 @@ class EditPasswordState extends State<EditPassword> {
               hintStyle: TextStyle(
                 color: KColors.fourth,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(color: KColors.secondary),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(color: KColors.secondary),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(color: KColors.lightPopout),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(color: KColors.secondary),
-              ),
+              // enabledBorder: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(50),
+              //   borderSide: BorderSide(color: KColors.secondary),
+              // ),
+              // focusedBorder: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(50),
+              //   borderSide: BorderSide(color: KColors.secondary),
+              // ),
+              // errorBorder: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(50),
+              //   borderSide: BorderSide(color: KColors.lightPopout),
+              // ),
+              // focusedErrorBorder: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(50),
+              //   borderSide: BorderSide(color: KColors.secondary),
+              // ),
             ),
           ),
         ),

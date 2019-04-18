@@ -45,14 +45,14 @@ class EditBioState extends State<EditBio> {
                       hintStyle: TextStyle(
                         color: KColors.fourth,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: KColors.secondary),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: KColors.secondary),
-                      ),
+                      // enabledBorder: OutlineInputBorder(
+                      //   borderRadius: BorderRadius.circular(50),
+                      //   borderSide: BorderSide(color: KColors.secondary),
+                      // ),
+                      // focusedBorder: OutlineInputBorder(
+                      //   borderRadius: BorderRadius.circular(50),
+                      //   borderSide: BorderSide(color: KColors.secondary),
+                      // ),
                     ),
                   ),
                 ),

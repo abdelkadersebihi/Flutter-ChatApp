@@ -2,6 +2,7 @@ import 'package:chat_pfe/Util/KColors.dart';
 import 'package:chat_pfe/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class User extends StatefulWidget {
   final DocumentSnapshot doc;
@@ -33,11 +34,12 @@ class UserState extends State<User> {
                     //       color: Color.fromRGBO(20, 20, 20, 1),
                     //       offset: Offset(0, 2)),
                     // ],
-                    gradient: LinearGradient(
-                      colors: [KColors.popout, KColors.popout],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    // gradient: LinearGradient(
+                    //   colors: [KColors.popout, KColors.popout],
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomRight,
+                    // ),
+                    color: KColors.third,
                     borderRadius: BorderRadius.circular(40)),
                 padding: EdgeInsets.all(1),
                 margin: EdgeInsets.only(left: 12, right: 8, top: 4, bottom: 4),
@@ -53,7 +55,7 @@ class UserState extends State<User> {
                     //     } else {
                     // return
                     CircleAvatar(
-                  backgroundImage: NetworkImage(widget.doc.data["uimg"]),
+                  backgroundImage: CachedNetworkImageProvider(widget.doc.data["uimg"]),
                   maxRadius: 35,
                 ),
                 //     }
@@ -174,14 +176,14 @@ class UserState extends State<User> {
                             hintStyle: TextStyle(
                               color: KColors.fourth,
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: KColors.secondary),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: KColors.secondary),
-                            ),
+                            // enabledBorder: OutlineInputBorder(
+                            //   borderRadius: BorderRadius.circular(50),
+                            //   borderSide: BorderSide(color: KColors.secondary),
+                            // ),
+                            // focusedBorder: OutlineInputBorder(
+                            //   borderRadius: BorderRadius.circular(50),
+                            //   borderSide: BorderSide(color: KColors.secondary),
+                            // ),
                           ),
                         ),
                       ),

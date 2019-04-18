@@ -60,11 +60,19 @@ class _ChatState extends State<Chat> {
                     child: Container(
                       padding: EdgeInsets.all(1),
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [KColors.lightPopout, KColors.popout],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
+
+                        gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: <Color>[
+                                  Color.fromRGBO(76, 184, 196, 1),
+                                  Color.fromRGBO(60, 211, 173, 1)
+                                ]),
+                          // gradient: LinearGradient(
+                          //   colors: [KColors.lightPopout, KColors.popout],
+                          //   begin: Alignment.topLeft,
+                          //   end: Alignment.bottomRight,
+                          // ),
                           borderRadius: BorderRadius.circular(35)),
                       child: StreamBuilder<DocumentSnapshot>(
                         stream: firestore
@@ -75,13 +83,13 @@ class _ChatState extends State<Chat> {
                           if (!snapshot.hasData) {
                             return CircleAvatar(
                               backgroundColor: KColors.secondary,
-                              maxRadius: 30,
+                              maxRadius: 22,
                             );
                           } else {
                             return CircleAvatar(
                               backgroundImage:
                                   NetworkImage(snapshot.data["cimg"]),
-                              maxRadius: 32,
+                              maxRadius: 30,
                             );
                           }
                         },
@@ -91,9 +99,10 @@ class _ChatState extends State<Chat> {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
+                          margin: EdgeInsets.only(bottom: 2),
                             child: StreamBuilder<DocumentSnapshot>(
                           stream: firestore
                               .collection("Chat")
@@ -105,18 +114,19 @@ class _ChatState extends State<Chat> {
                               return Icon(
                                 Icons.more_horiz,
                                 color: KColors.third,
-                                size: 28,
+                                size: 26,
                               );
                             } else {
                               return Text(
                                 snapshot.data["cname"],
                                 style: TextStyle(
-                                    color: KColors.third, fontSize: 18),
+                                    color: KColors.third, fontSize: 16),
                               );
                             }
                           },
                         )),
                         Container(
+                          margin: EdgeInsets.only(top: 2),
                             child: StreamBuilder<QuerySnapshot>(
                           stream: firestore
                               .collection("Chat")
@@ -130,7 +140,7 @@ class _ChatState extends State<Chat> {
                               return Icon(
                                 Icons.more_horiz,
                                 color: KColors.fourth,
-                                size: 22,
+                                size: 18,
                               );
                             } else {
                               return Text(
@@ -159,7 +169,7 @@ class _ChatState extends State<Chat> {
                                 //       DateFormat('dd MMM kk:mm')
                                 // .format(DateTime.fromMillisecondsSinceEpoch(int.parse(
                                 //       snapshot.data.documents[0].data["mdate"]))),
-                                style: TextStyle(color: KColors.fourth),
+                                style: TextStyle(color: KColors.fourth,fontSize: 12),
                               );
                             }
                           },
