@@ -3,6 +3,7 @@ import 'package:chat_pfe/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:math';
 
 class User extends StatefulWidget {
   final DocumentSnapshot doc;
@@ -18,16 +19,30 @@ class User extends StatefulWidget {
 class UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
+    Random rnd = new Random();
     return Container(
-      padding: EdgeInsets.only(top: 8),
+      decoration: BoxDecoration(
+        border: Border(
+            right: BorderSide(
+                color: Color.fromRGBO(rnd.nextInt(130) + 100,
+                    rnd.nextInt(100) + 100, rnd.nextInt(100) + 100, 1),
+                width: 10)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              blurRadius: 5,
+              color: Color.fromRGBO(20, 20, 20, 1),
+              offset: Offset(0, 2)),
+        ],
+      ),
+      margin: EdgeInsets.only(top: 6, left: 4, right: 4),
       child: Material(
-        color: KColors.primary,
+        color: KColors.secondary,
         child: InkWell(
           onTap: _dialog,
           child: Row(
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
+                  decoration: BoxDecoration(
                     // boxShadow: <BoxShadow>[
                     //   BoxShadow(
                     //       blurRadius: 5,
@@ -40,28 +55,34 @@ class UserState extends State<User> {
                     //   end: Alignment.bottomRight,
                     // ),
                     color: KColors.third,
-                    borderRadius: BorderRadius.circular(40)),
-                padding: EdgeInsets.all(1),
-                margin: EdgeInsets.only(left: 12, right: 8, top: 4, bottom: 4),
-                child:
-                    // StreamBuilder<DocumentSnapshot>(
-                    //   stream: firestore.collection("User").document(widget.doc.documentID).snapshots(),
-                    //   builder: (context, snapshot) {
-                    //     if (!snapshot.hasData) {
-                    //       return CircleAvatar(
-                    //         backgroundColor: KColors.secondary,
-                    //         maxRadius: 35,
-                    //       );
-                    //     } else {
-                    // return
-                    CircleAvatar(
-                  backgroundImage: CachedNetworkImageProvider(widget.doc.data["uimg"]),
-                  maxRadius: 35,
-                ),
-                //     }
-                //   },
-                // )
-              ),
+                    // borderRadius: BorderRadius.circular(40)
+                  ),
+                  // padding: EdgeInsets.all(1),
+                  margin: EdgeInsets.only(right: 8),
+                  child:
+                      // StreamBuilder<DocumentSnapshot>(
+                      //   stream: firestore.collection("User").document(widget.doc.documentID).snapshots(),
+                      //   builder: (context, snapshot) {
+                      //     if (!snapshot.hasData) {
+                      //       return CircleAvatar(
+                      //         backgroundColor: KColors.secondary,
+                      //         maxRadius: 35,
+                      //       );
+                      //     } else {
+                      // return
+                      Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: CachedNetworkImageProvider(
+                                widget.doc.data["uimg"]),
+                            fit: BoxFit.cover)),
+                    width: MediaQuery.of(context).size.width / 4.5,
+                    height: 80,
+                  )
+                  //     }
+                  //   },
+                  // )
+                  ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -151,97 +172,98 @@ class UserState extends State<User> {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: KColors.primary,
-            title: Text("New message",style: TextStyle(color: KColors.third)),
+            title: Text("New message", style: TextStyle(color: KColors.third)),
             content: Container(
-                      padding: EdgeInsets.all(8),
-                      child: Form(
-                        key: formKey,
-                        child: TextFormField(
-                          onSaved: (input) {
-                            msg = input;
-                          },
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return "type somthing";
-                            }
-                          },
-                          cursorWidth: 1,
-                          cursorColor: KColors.fourth,
-                          style: TextStyle(color: KColors.third),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(12),
-                            fillColor: KColors.secondary,
-                            filled: true,
-                            hintText: 'Aa',
-                            hintStyle: TextStyle(
-                              color: KColors.fourth,
-                            ),
-                            // enabledBorder: OutlineInputBorder(
-                            //   borderRadius: BorderRadius.circular(50),
-                            //   borderSide: BorderSide(color: KColors.secondary),
-                            // ),
-                            // focusedBorder: OutlineInputBorder(
-                            //   borderRadius: BorderRadius.circular(50),
-                            //   borderSide: BorderSide(color: KColors.secondary),
-                            // ),
-                          ),
-                        ),
-                      ),
+              padding: EdgeInsets.all(8),
+              child: Form(
+                key: formKey,
+                child: TextFormField(
+                  onSaved: (input) {
+                    msg = input;
+                  },
+                  validator: (input) {
+                    if (input.isEmpty) {
+                      return "type somthing";
+                    }
+                  },
+                  cursorWidth: 1,
+                  cursorColor: KColors.fourth,
+                  style: TextStyle(color: KColors.third),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(12),
+                    fillColor: KColors.secondary,
+                    filled: true,
+                    hintText: 'Aa',
+                    hintStyle: TextStyle(
+                      color: KColors.fourth,
                     ),
-                    actions: <Widget>[
-                      FlatButton(
-                        child: Text("Cancel",style: TextStyle(color: KColors.fourth),),
-                        onPressed: ()=>Navigator.pop(context),
-                      ),
+                    // enabledBorder: OutlineInputBorder(
+                    //   borderRadius: BorderRadius.circular(50),
+                    //   borderSide: BorderSide(color: KColors.secondary),
+                    // ),
+                    // focusedBorder: OutlineInputBorder(
+                    //   borderRadius: BorderRadius.circular(50),
+                    //   borderSide: BorderSide(color: KColors.secondary),
+                    // ),
+                  ),
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(color: KColors.fourth),
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
+              FlatButton(
+                child: Text(
+                  "Send",
+                  style: TextStyle(color: KColors.popout),
+                ),
+                onPressed: () {
+                  if (formKey.currentState.validate()) {
+                    formKey.currentState.save();
 
-                      FlatButton(
-                        child: Text("Send",style: TextStyle(color: KColors.popout),),
-                        onPressed: (){
-                              if (formKey.currentState.validate()) {
-                                formKey.currentState.save();
-
-                                  firestore.runTransaction((trs) async {
-                                  await firestore.collection('Chat').add({
-                                    "cname": widget.doc.data["uname"] +
-                                        " and " +
-                                        userDocument.data["uname"],
-                                    "cparts": [
-                                      firebaseUser.uid,
-                                      widget.doc.documentID
-                                    ],
-                                    "cnames": [
-                                      widget.doc.data["uname"],
-                                      userDocument.data["uname"]
-                                    ],
-                                    "clastdate":DateTime.now().millisecondsSinceEpoch,
-                                    "cimg": "https://firebasestorage.googleapis.com/v0/b/firestore-74deb.appspot.com/o/conv.png?alt=media&token=51c51e26-d527-4f90-97c3-d708d5d90374"
-                                  }).then((onValue) async {
-                                    await onValue.collection("Message").add({
-                                      "mfrom": firebaseUser.uid,
-                                      "mctn": msg,
-                                      "mdate":
-                                          DateTime.now().millisecondsSinceEpoch
-                                    });
-                                  });
-                                }
-                                // ).catchError((onError){
-                                //   showBottomSheet(
-                                //     context: context,
-                                //     builder: (BuildContext context){
-                                //       return Text(onError);
-                                //     }
-                                //   );  
-                                // }
-                                );
-                                Navigator.pop(context);
-                              }
-                        },
-                      )
-                    ],
+                    firestore.runTransaction((trs) async {
+                      await firestore.collection('Chat').add({
+                        "cname": widget.doc.data["uname"] +
+                            " and " +
+                            userDocument.data["uname"],
+                        "cparts": [firebaseUser.uid, widget.doc.documentID],
+                        "cnames": [
+                          widget.doc.data["uname"],
+                          userDocument.data["uname"]
+                        ],
+                        "clastdate": DateTime.now().millisecondsSinceEpoch,
+                        "cimg":
+                            "https://firebasestorage.googleapis.com/v0/b/firestore-74deb.appspot.com/o/conv.png?alt=media&token=51c51e26-d527-4f90-97c3-d708d5d90374"
+                      }).then((onValue) async {
+                        await onValue.collection("Message").add({
+                          "mfrom": firebaseUser.uid,
+                          "mctn": msg,
+                          "mdate": DateTime.now().millisecondsSinceEpoch
+                        });
+                      });
+                    }
+                        // ).catchError((onError){
+                        //   showBottomSheet(
+                        //     context: context,
+                        //     builder: (BuildContext context){
+                        //       return Text(onError);
+                        //     }
+                        //   );
+                        // }
+                        );
+                    Navigator.pop(context);
+                  }
+                },
+              )
+            ],
           );
         });
   }
 
   // Future<void> edit(GlobalKey<FormState> formKey) async {}
 }
-
