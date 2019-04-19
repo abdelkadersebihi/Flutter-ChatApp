@@ -30,13 +30,13 @@ class UserState extends State<User> {
         boxShadow: <BoxShadow>[
           BoxShadow(
               blurRadius: 5,
-              color: Color.fromRGBO(20, 20, 20, 1),
+              color: Color.fromRGBO(10, 10, 10, 1),
               offset: Offset(0, 2)),
         ],
       ),
       margin: EdgeInsets.only(top: 6, left: 4, right: 4),
       child: Material(
-        color: KColors.secondary,
+        color: KColors.primary,
         child: InkWell(
           onTap: _dialog,
           child: Row(
