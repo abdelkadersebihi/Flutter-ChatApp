@@ -214,7 +214,7 @@ class _ProfileState extends State<Profile> {
             ),
             Container(
               margin: EdgeInsets.only(top: 20),
-              child: FlatButton(
+              child: GestureDetector(
                 child: Container(
                   padding: EdgeInsets.all(6),
                   decoration: BoxDecoration(
@@ -235,7 +235,7 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(color: KColors.lightPopout, fontSize: 18),
                   ),
                 ),
-                onPressed: _signOut,
+                onTap: _signOut,
               ),
             )
           ],

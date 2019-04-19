@@ -160,6 +160,9 @@ class _LoginPageState extends State<LoginPage> {
                                   margin: EdgeInsets.only(
                                       left: 15, right: 15, top: 8),
                                   child: TextFormField(
+                                    onFieldSubmitted: (input){
+                                      validate();
+                                    },
                                     cursorWidth: 1,
                                     cursorColor: Colors.black,
                                     style: TextStyle(
