@@ -25,6 +25,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
+      backgroundColor: KColors.primary,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
