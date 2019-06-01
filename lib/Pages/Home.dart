@@ -34,200 +34,175 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: firebaseAuth.currentUser(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-              child: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                "Loading..",
-                style: TextStyle(color: KColors.third, fontSize: 22),
-              ),
-              elevation: 0,
-              backgroundColor: KColors.primary,
-            ),
-            body: Container(
-              color: KColors.primary,
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                ),
-              ),
-            ),
-          ));
-        } else {
-          return Container(
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: KColors.primary,
-                elevation: 0,
-                title: Text(
-                  title,
-                  style: TextStyle(color: KColors.third, fontSize: 22),
-                ),
-                actions: <Widget>[
-                  PopupMenuButton(
-                    icon: Icon(Icons.more_vert, color: KColors.third),
-                    onSelected: (index) {
-                      switch (index) {
-                        case 0:
-                          _showSettingsDialog();
-                          break;
-                        case 1:
-                          _showAboutDialog();
-                          break;
-                        case 2:
-                          _showHelpDialog();
-                          break;
-                        case 3:
-                          _showGithubDialog();
-                          break;
+    return Container(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: KColors.primary,
+          elevation: 0,
+          title: Text(
+            title,
+            style: TextStyle(color: KColors.third, fontSize: 22),
+          ),
+          actions: <Widget>[
+            PopupMenuButton(
+              icon: Icon(Icons.more_vert, color: KColors.third),
+              onSelected: (index) {
+                switch (index) {
+                  case 0:
+                    _showSettingsDialog();
+                    break;
+                  case 1:
+                    _showAboutDialog();
+                    break;
+                  case 2:
+                    _showHelpDialog();
+                    break;
+                  case 3:
+                    _showGithubDialog();
+                    break;
 
-                        default:
-                      }
-                    },
-                    elevation: 3,
-                    itemBuilder: (context) {
-                      return [
-                        PopupMenuItem(
-                            value: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Account",
-                                  style: TextStyle(color: KColors.third),
-                                ),
-                                Icon(
-                                  LineIcons.refresh,
-                                  color: KColors.fourth,
-                                )
-                              ],
-                            )),
-                        PopupMenuItem(
-                            value: 1,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "About",
-                                  style: TextStyle(color: KColors.third),
-                                ),
-                                Icon(
-                                  LineIcons.info_circle,
-                                  color: KColors.fourth,
-                                  size: 22,
-                                )
-                              ],
-                            )),
-                        PopupMenuItem(
-                            value: 2,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Help",
-                                  style: TextStyle(color: KColors.third),
-                                ),
-                                Icon(
-                                  LineIcons.question_circle,
-                                  color: KColors.fourth,
-                                )
-                              ],
-                            )),
-                        PopupMenuItem(
-                            value: 3,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Github",
-                                  style: TextStyle(color: KColors.third),
-                                ),
-                                Icon(LineIcons.share, color: KColors.fourth)
-                              ],
-                            )),
-                      ];
-                    },
-                  )
-                ],
+                  default:
+                }
+              },
+              elevation: 3,
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                      value: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            "Account",
+                            style: TextStyle(color: KColors.third),
+                          ),
+                          Icon(
+                            LineIcons.refresh,
+                            color: KColors.fourth,
+                          )
+                        ],
+                      )),
+                  PopupMenuItem(
+                      value: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            "About",
+                            style: TextStyle(color: KColors.third),
+                          ),
+                          Icon(
+                            LineIcons.info_circle,
+                            color: KColors.fourth,
+                            size: 22,
+                          )
+                        ],
+                      )),
+                  PopupMenuItem(
+                      value: 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            "Help",
+                            style: TextStyle(color: KColors.third),
+                          ),
+                          Icon(
+                            LineIcons.question_circle,
+                            color: KColors.fourth,
+                          )
+                        ],
+                      )),
+                  PopupMenuItem(
+                      value: 3,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            "Github",
+                            style: TextStyle(color: KColors.third),
+                          ),
+                          Icon(LineIcons.share, color: KColors.fourth)
+                        ],
+                      )),
+                ];
+              },
+            )
+          ],
+        ),
+        body: Container(
+          color: KColors.primary,
+          child: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            // onPageChanged: (index) {
+            //   setState(() {
+            //    switch (index) {
+            //     case 0:
+            //      title="Profile";
+            //       break;
+            //     case 1:
+            //      title="Chats";
+            //       break;
+            //     case 2:
+            //      title="Search";
+            //       break;
+            //     case 3:
+            //      title="Contacts";
+            //       break;
+            //     default:
+            //   }
+            //   });
+            // },
+            controller: controller,
+            children: <Widget>[
+              Messages(),
+              Container(
+                color: KColors.primary,
               ),
-              body: PageView(
-                physics: NeverScrollableScrollPhysics(),
-                // onPageChanged: (index) {
-                //   setState(() {
-                //    switch (index) {
-                //     case 0:
-                //      title="Profile";
-                //       break;
-                //     case 1:
-                //      title="Chats";
-                //       break;
-                //     case 2:
-                //      title="Search";
-                //       break;
-                //     case 3:
-                //      title="Contacts";
-                //       break;
-                //     default:
-                //   }
-                //   });
-                // },
-                controller: controller,
-                children: <Widget>[
-                  Messages(),
-                  Container(
-                    color: KColors.primary,
-                  ),
-                  Friends(),
-                  Profile(
-                    firebaseUserId: firebaseUser.uid,
-                  ),
-                ],
+              Friends(),
+              Profile(
+                firebaseUserId: firebaseUser.uid,
               ),
-              bottomNavigationBar: CurvedNavigationBar(
-                height: 54,
-                backgroundColor: KColors.primary,
-                buttonBackgroundColor: KColors.popout,
-                color: KColors.secondary,
-                items: <Widget>[
-                  Icon(
-                    LineIcons.home,
-                    size: 26,
-                    color: KColors.third,
-                  ),
-                  Icon(
-                    LineIcons.search,
-                    size: 24,
-                    color: KColors.third,
-                  ),
-                  Icon(
-                    LineIcons.group,
-                    size: 26,
-                    color: KColors.third,
-                  ),
-                  Icon(
-                    LineIcons.user,
-                    size: 26,
-                    color: KColors.third,
-                  ),
-                ],
-                animationDuration: Duration(milliseconds: 1000),
-                animationCurve: Curves.linearToEaseOut,
-                onTap: (index) {
-                  //Handle button tap
-                  // controller.jumpToPage(index);
-                  controller.animateToPage(index,
-                      duration: Duration(milliseconds: 1000),
-                      curve: Curves.ease);
-                },
-              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: CurvedNavigationBar(
+          height: 54,
+          backgroundColor: KColors.primary,
+          buttonBackgroundColor: KColors.popout,
+          color: KColors.secondary,
+          items: <Widget>[
+            Icon(
+              LineIcons.home,
+              size: 26,
+              color: KColors.third,
             ),
-          );
-        }
-      },
+            Icon(
+              LineIcons.search,
+              size: 24,
+              color: KColors.third,
+            ),
+            Icon(
+              LineIcons.group,
+              size: 26,
+              color: KColors.third,
+            ),
+            Icon(
+              LineIcons.user,
+              size: 26,
+              color: KColors.third,
+            ),
+          ],
+          animationDuration: Duration(milliseconds: 200),
+          animationCurve: Curves.linearToEaseOut,
+          onTap: (index) {
+            //Handle button tap
+            // controller.jumpToPage(index);
+            controller.animateToPage(index,
+                duration: Duration(milliseconds: 200), curve: Curves.ease);
+          },
+        ),
+      ),
     );
   }
 

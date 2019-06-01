@@ -17,7 +17,7 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   curved_navigation_bar: 
-  cached_network_image: 
+  cached_network_image:
   url_launcher:
   firebase_storage: 
   groovin_material_icons:
