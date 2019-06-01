@@ -93,7 +93,7 @@ class Msg extends StatelessWidget {
                       if (!snapshot.hasData) {
                         return CircleAvatar(
                           backgroundColor: KColors.secondary,
-                          maxRadius: 28,
+                          maxRadius: 32,
                         );
                       } else {
                         return CircleAvatar(

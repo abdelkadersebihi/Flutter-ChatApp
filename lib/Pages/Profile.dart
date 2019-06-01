@@ -22,9 +22,10 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: KColors.primary,
-      child: SingleChildScrollView(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: false,
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -97,7 +98,9 @@ class _ProfileState extends State<Profile> {
                                     alignment: Alignment.center,
                                     child: CircleAvatar(
                                       maxRadius: 180,
-                                      backgroundImage: CachedNetworkImageProvider(snapshot.data["uimg"]),
+                                      backgroundImage:
+                                          CachedNetworkImageProvider(
+                                              snapshot.data["uimg"]),
                                       // child: CachedNetworkImage(
                                       //   fit: BoxFit.cover,
                                       //   imageUrl: snapshot.data["uimg"],
@@ -218,15 +221,14 @@ class _ProfileState extends State<Profile> {
                 child: Container(
                   padding: EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: <BoxShadow>[
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: <BoxShadow>[
                         BoxShadow(
                             blurRadius: 5,
                             color: Color.fromRGBO(20, 20, 20, 1),
                             offset: Offset(0, 2)),
                       ],
-                    color: KColors.secondary  
-                  ),
+                      color: KColors.secondary),
                   // decoration: BoxDecoration(
                   //     borderRadius: BorderRadius.circular(8),
                   //     border: Border.all(color: KColors.lightPopout)),

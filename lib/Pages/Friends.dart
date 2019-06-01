@@ -16,6 +16,8 @@ class _FriendsState extends State<Friends> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomPadding: false,
         backgroundColor: KColors.primary,
         body: StreamBuilder<QuerySnapshot>(
           stream: firestore.collection("User").snapshots(),
