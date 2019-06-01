@@ -359,8 +359,8 @@ class _LoginPageState extends State<LoginPage> {
                               : () async {
                                   setState(() => this._busy = true);
                                   pagecontroller.animateToPage(1,
-                                      curve: Curves.bounceOut,
-                                      duration: Duration(milliseconds: 1600));
+                                      curve: Curves.ease,
+                                      duration: Duration(milliseconds: 1000));
                                   setState(() => this._busy = false);
                                 },
                           child: Text(

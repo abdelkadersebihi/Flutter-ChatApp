@@ -389,7 +389,7 @@ class _SignupState extends State<Signup> {
                       ),
                       onPressed: () => pagecontroller.animateToPage(0,
                           curve: Curves.ease,
-                          duration: Duration(milliseconds: 1600)))),
+                          duration: Duration(milliseconds: 1000)))),
             ],
           ),
         ));

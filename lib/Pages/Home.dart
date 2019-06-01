@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _HomeState extends State<Home> {
   PageController controller;
   int selected = 0;
   String title = "Chating";
@@ -156,9 +156,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             controller: controller,
             children: <Widget>[
               Messages(),
-              Container(
-                color: KColors.primary,
-              ),
+              // Container(
+              //   color: KColors.primary,
+              // ),
               Friends(),
               Profile(
                 firebaseUserId: firebaseUser.uid,
@@ -177,11 +177,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               size: 26,
               color: KColors.third,
             ),
-            Icon(
-              LineIcons.search,
-              size: 24,
-              color: KColors.third,
-            ),
+            // Icon(
+            //   LineIcons.search,
+            //   size: 24,
+            //   color: KColors.third,
+            // ),
             Icon(
               LineIcons.group,
               size: 26,
@@ -193,13 +193,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               color: KColors.third,
             ),
           ],
-          animationDuration: Duration(milliseconds: 200),
+          animationDuration: Duration(milliseconds: 400),
           animationCurve: Curves.linearToEaseOut,
           onTap: (index) {
             //Handle button tap
             // controller.jumpToPage(index);
             controller.animateToPage(index,
-                duration: Duration(milliseconds: 200), curve: Curves.ease);
+                duration: Duration(milliseconds: 400), curve: Curves.ease);
           },
         ),
       ),
