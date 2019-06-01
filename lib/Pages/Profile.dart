@@ -216,7 +216,7 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(top: 20,bottom: 10),
               child: GestureDetector(
                 child: Container(
                   padding: EdgeInsets.all(6),
