@@ -415,7 +415,7 @@ class _SignupState extends State<Signup> {
             "ubio": this._ubio
           });
         });
-        Navigator.pop(context);
+        // Navigator.pop(context);
       }).catchError((onError) {
         showDialog(
             context: context,
