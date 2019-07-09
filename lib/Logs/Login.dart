@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:chat_pfe/Logs/Signup.dart';
 import 'package:chat_pfe/main.dart';
 import 'package:flutter/material.dart';
-import 'package:groovin_material_icons/groovin_material_icons.dart';
 
 PageController pagecontroller;
 

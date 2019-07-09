@@ -13,16 +13,16 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  outline_material_icons:
-  firebase_auth:
-  cloud_firestore:
-  curved_navigation_bar: 
-  cached_network_image:
-  url_launcher:
-  firebase_storage: 
-  groovin_material_icons:
-  line_icons: 
-  image_picker: 
+  outline_material_icons: ^0.1.0
+  firebase_auth: ^0.11.1+7
+  cloud_firestore: ^0.12.7
+  curved_navigation_bar: ^0.3.0
+  cached_network_image: ^1.0.0
+  url_launcher: ^5.0.3
+  firebase_storage: ^3.0.2
+  groovin_material_icons: ^1.1.6
+  line_icons: ^0.2.0
+  image_picker: ^0.6.0+15
 
   flutter:
     sdk: flutter

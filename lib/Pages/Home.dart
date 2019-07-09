@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:chat_pfe/Pages/Messages.dart';
 import 'package:chat_pfe/Pages/Profile.dart';
 import 'package:chat_pfe/Util/KColors.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -54,13 +52,21 @@ class _HomeState extends State<Home> {
                         .document(firebaseUser.uid)
                         .snapshots(),
                     builder: (context, snapshot) {
-                      return Container(
-                        child: CircleAvatar(
+                      if (snapshot.hasData) {
+                        return Container(
+                            child: CircleAvatar(
                           backgroundImage:
                               CachedNetworkImageProvider(snapshot.data["uimg"]),
                           maxRadius: 20,
-                        ),
-                      );
+                        ));
+                      } else {
+                        return Container(
+                          child: CircleAvatar(
+                            backgroundColor: KColors.secondary,
+                            maxRadius: 20,
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),
@@ -487,22 +493,22 @@ class EditPasswordState extends State<EditPassword> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
 
-      firestore.runTransaction((trs) async {
-        firestore
-            .collection('User')
-            .document(firebaseUser.uid)
-            .get()
-            .then((DocumentSnapshot snapshot) async {
-          await firestore
-              .collection("User")
+      await firebaseUser.updatePassword(_password).then((onValue) {
+        firestore.runTransaction((trs) async {
+          firestore
+              .collection('User')
               .document(firebaseUser.uid)
-              .updateData({
-            'upassword': _password,
+              .get()
+              .then((DocumentSnapshot snapshot) async {
+            await firestore
+                .collection("User")
+                .document(firebaseUser.uid)
+                .updateData({
+              'upassword': _password,
+            });
           });
         });
-        await firebaseUser.updatePassword(_password).then((onValue) {
-          firebaseAuth.signOut();
-        });
+        firebaseAuth.signOut();
       });
       Navigator.pop(context);
     }

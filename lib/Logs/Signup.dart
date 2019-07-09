@@ -1,7 +1,6 @@
 import 'package:chat_pfe/Logs/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:groovin_material_icons/groovin_material_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Signup extends StatefulWidget {
