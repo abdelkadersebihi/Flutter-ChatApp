@@ -5,10 +5,27 @@ import 'package:chat_pfe/Pages/Chat.dart';
 import 'package:chat_pfe/Util/KColors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class Msg extends StatelessWidget {
+class Msg extends StatefulWidget {
   final DocumentSnapshot doc;
 
   const Msg({Key key, this.doc}) : super(key: key);
+
+  @override
+  _MsgState createState() => _MsgState();
+}
+
+class _MsgState extends State<Msg> {
+
+  String cpartner;
+
+  @override
+  void initState() {
+    cpartner = widget.doc.data["cparts"][0] == firebaseUser.uid
+        ? widget.doc.data["cparts"][1].toString()
+        : widget.doc.data["cparts"][0].toString();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +35,7 @@ class Msg extends StatelessWidget {
         color: KColors.primary,
         child: InkWell(
           onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (ctx) => Chat(doc: doc))),
+              context, MaterialPageRoute(builder: (ctx) => Chat(doc: widget.doc))),
           onLongPress: () {
             showDialog(
                 context: context,
@@ -52,7 +69,7 @@ class Msg extends StatelessWidget {
                           firestore.runTransaction((transactionHandler) async {
                             await firestore
                                 .collection("Chat")
-                                .document(doc.documentID)
+                                .document(widget.doc.documentID)
                                 .delete()
                                 .then((onValue) {
                               Navigator.pop(context);
@@ -86,8 +103,8 @@ class Msg extends StatelessWidget {
                       EdgeInsets.only(left: 12, right: 8, top: 4, bottom: 4),
                   child: StreamBuilder<DocumentSnapshot>(
                     stream: firestore
-                        .collection("Chat")
-                        .document(doc.documentID)
+                        .collection("User")
+                        .document(cpartner)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
@@ -98,7 +115,7 @@ class Msg extends StatelessWidget {
                       } else {
                         return CircleAvatar(
                           backgroundImage: CachedNetworkImageProvider(
-                            snapshot.data["cimg"],
+                            snapshot.data["uimg"],
                           ),
                           // backgroundColor: KColors.primary,
                           maxRadius: 32,
@@ -115,8 +132,8 @@ class Msg extends StatelessWidget {
                       margin: EdgeInsets.only(left: 8, bottom: 2),
                       child: StreamBuilder<DocumentSnapshot>(
                         stream: firestore
-                            .collection("Chat")
-                            .document(doc.documentID)
+                            .collection("User")
+                            .document(cpartner)
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
@@ -127,7 +144,7 @@ class Msg extends StatelessWidget {
                             );
                           } else {
                             return Text(
-                              snapshot.data["cname"],
+                              snapshot.data["uname"]+" "+snapshot.data["ulastname"],
                               style:
                                   TextStyle(color: KColors.third, fontSize: 18),
                               overflow: TextOverflow.ellipsis,
@@ -141,7 +158,7 @@ class Msg extends StatelessWidget {
                       child: StreamBuilder<QuerySnapshot>(
                         stream: firestore
                             .collection("Chat")
-                            .document(doc.documentID)
+                            .document(widget.doc.documentID)
                             .collection("Message")
                             .orderBy("mdate", descending: true)
                             .limit(1)
@@ -172,7 +189,7 @@ class Msg extends StatelessWidget {
                 child: StreamBuilder<QuerySnapshot>(
                   stream: firestore
                       .collection("Chat")
-                      .document(doc.documentID)
+                      .document(widget.doc.documentID)
                       .collection("Message")
                       .orderBy("mdate", descending: true)
                       .limit(1)

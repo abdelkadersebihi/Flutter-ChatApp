@@ -3,6 +3,7 @@ import 'package:chat_pfe/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_pfe/Util/KColors.dart';
+import 'package:line_icons/line_icons.dart';
 
 class Friends extends StatefulWidget {
   @override
@@ -42,6 +43,11 @@ class _FriendsState extends State<Friends> {
               );
             }
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: KColors.popout,
+          child: Icon(LineIcons.pencil,
+        ),
         ),
         // floatingActionButton: FloatingActionButton(
         //   elevation: 2,

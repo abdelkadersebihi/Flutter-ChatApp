@@ -30,7 +30,8 @@ class _SignupState extends State<Signup> {
                     "assets/bg4.jpeg",
                   ),
                   fit: BoxFit.cover)),
-          child: ListView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
                 margin:
@@ -283,7 +284,7 @@ class _SignupState extends State<Signup> {
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                            top: 8, bottom: 20, left: 8, right: 8),
+                            top: 40, bottom: 40, left: 8, right: 8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           gradient: LinearGradient(
@@ -318,67 +319,67 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
               ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "Or",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'product',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 28, left: 40, right: 40),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: Colors.white, width: 2)),
-                      child: CircleAvatar(
-                        maxRadius: 28,
-                        backgroundColor: Colors.transparent,
-                        child: Icon(
-                          GroovinMaterialIcons.facebook,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: Colors.white, width: 2)),
-                      child: CircleAvatar(
-                        maxRadius: 28,
-                        backgroundColor: Colors.transparent,
-                        child: Icon(
-                          GroovinMaterialIcons.google,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: Colors.white, width: 2)),
-                      child: CircleAvatar(
-                        maxRadius: 28,
-                        backgroundColor: Colors.transparent,
-                        child: Icon(
-                          GroovinMaterialIcons.twitter,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(//tebda men
+              //   alignment: Alignment.center,
+              //   child: Text(
+              //     "Or",
+              //     style: TextStyle(
+              //         color: Colors.white,
+              //         fontFamily: 'product',
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold),
+              //   ),
+              // ),
+              // Container(
+              //   margin: EdgeInsets.only(top: 28, left: 40, right: 40),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //     children: <Widget>[
+              //       Container(
+              //         padding: EdgeInsets.all(2),
+              //         decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.circular(40),
+              //             border: Border.all(color: Colors.white, width: 2)),
+              //         child: CircleAvatar(
+              //           maxRadius: 28,
+              //           backgroundColor: Colors.transparent,
+              //           child: Icon(
+              //             GroovinMaterialIcons.facebook,
+              //             color: Colors.white,
+              //           ),
+              //         ),
+              //       ),
+              //       Container(
+              //         padding: EdgeInsets.all(2),
+              //         decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.circular(40),
+              //             border: Border.all(color: Colors.white, width: 2)),
+              //         child: CircleAvatar(
+              //           maxRadius: 28,
+              //           backgroundColor: Colors.transparent,
+              //           child: Icon(
+              //             GroovinMaterialIcons.google,
+              //             color: Colors.white,
+              //           ),
+              //         ),
+              //       ),
+              //       Container(
+              //         padding: EdgeInsets.all(2),
+              //         decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.circular(40),
+              //             border: Border.all(color: Colors.white, width: 2)),
+              //         child: CircleAvatar(
+              //           maxRadius: 28,
+              //           backgroundColor: Colors.transparent,
+              //           child: Icon(
+              //             GroovinMaterialIcons.twitter,
+              //             color: Colors.white,
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Container(
                   margin: EdgeInsets.only(top: 8),
                   child: IconButton(
@@ -389,7 +390,7 @@ class _SignupState extends State<Signup> {
                       ),
                       onPressed: () => pagecontroller.animateToPage(0,
                           curve: Curves.ease,
-                          duration: Duration(milliseconds: 1000)))),
+                          duration: Duration(milliseconds: 500)))),
             ],
           ),
         ));

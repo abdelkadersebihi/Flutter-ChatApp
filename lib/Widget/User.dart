@@ -19,20 +19,21 @@ class User extends StatefulWidget {
 class UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
-    Random rnd = new Random();
+    // Random rnd = new Random();
     return Container(
+      padding: EdgeInsets.only(top: 2,bottom: 2,left: 4),
       decoration: BoxDecoration(
-        border: Border(
-            right: BorderSide(
-                color: Color.fromRGBO(rnd.nextInt(130) + 100,
-                    rnd.nextInt(100) + 100, rnd.nextInt(100) + 100, 1),
-                width: 10)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              blurRadius: 5,
-              color: Color.fromRGBO(10, 10, 10, 1),
-              offset: Offset(0, 2)),
-        ],
+        // border: Border(
+        //     right: BorderSide(
+        //         color: Color.fromRGBO(rnd.nextInt(130) + 100,
+        //             rnd.nextInt(100) + 100, rnd.nextInt(100) + 100, 1),
+        //         width: 10)),
+        // boxShadow: <BoxShadow>[
+        //   BoxShadow(
+        //       blurRadius: 5,
+        //       color: Color.fromRGBO(10, 10, 10, 1),
+        //       offset: Offset(0, 2)),
+        // ],
       ),
       margin: EdgeInsets.only(top: 6, left: 4, right: 4),
       child: Material(
@@ -54,7 +55,7 @@ class UserState extends State<User> {
                     //   begin: Alignment.topLeft,
                     //   end: Alignment.bottomRight,
                     // ),
-                    color: KColors.third,
+                    // color: KColors.primary,
                     // borderRadius: BorderRadius.circular(40)
                   ),
                   // padding: EdgeInsets.all(1),
@@ -70,15 +71,19 @@ class UserState extends State<User> {
                       //       );
                       //     } else {
                       // return
-                      Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                                widget.doc.data["uimg"]),
-                            fit: BoxFit.cover)),
-                    width: MediaQuery.of(context).size.width / 4.5,
-                    height: 80,
-                  )
+                     Container(
+                       padding: EdgeInsets.all(2),
+                       decoration: BoxDecoration(
+                         color: Colors.white,
+                         borderRadius: BorderRadius.all(Radius.circular(40))
+                       ),
+                       child: CircleAvatar(
+                         maxRadius: 35,
+                         backgroundImage: CachedNetworkImageProvider(
+                                widget.doc.data["uimg"]
+                                ),
+                       ),
+                     )
                   //     }
                   //   },
                   // )

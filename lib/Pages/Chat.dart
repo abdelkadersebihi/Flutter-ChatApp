@@ -17,8 +17,14 @@ class _ChatState extends State<Chat> {
   TextEditingController _controller;
   ScrollController _scrollController;
 
+  
+  String cpartner;
+
   @override
   void initState() {
+    cpartner = widget.doc.data["cparts"][0] == firebaseUser.uid
+        ? widget.doc.data["cparts"][1].toString()
+        : widget.doc.data["cparts"][0].toString();
     super.initState();
     _controller = new TextEditingController();
     _scrollController = new ScrollController();
@@ -42,7 +48,7 @@ class _ChatState extends State<Chat> {
             child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top+5),
               child: Row(
                 children: <Widget>[
                   Container(
@@ -76,20 +82,20 @@ class _ChatState extends State<Chat> {
                           borderRadius: BorderRadius.circular(35)),
                       child: StreamBuilder<DocumentSnapshot>(
                         stream: firestore
-                            .collection("Chat")
-                            .document(widget.doc.documentID)
+                            .collection("User")
+                            .document(cpartner)
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
                             return CircleAvatar(
                               backgroundColor: KColors.secondary,
-                              maxRadius: 22,
+                              maxRadius: 28,
                             );
                           } else {
                             return CircleAvatar(
                               backgroundImage:
-                                  NetworkImage(snapshot.data["cimg"]),
-                              maxRadius: 30,
+                                  NetworkImage(snapshot.data["uimg"]),
+                              maxRadius: 28,
                             );
                           }
                         },
@@ -105,12 +111,11 @@ class _ChatState extends State<Chat> {
                           margin: EdgeInsets.only(bottom: 2),
                             child: StreamBuilder<DocumentSnapshot>(
                           stream: firestore
-                              .collection("Chat")
-                              .document(widget.doc.documentID)
+                              .collection("User")
+                              .document(cpartner)
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              print("LOOOOOOOOOL");
                               return Icon(
                                 Icons.more_horiz,
                                 color: KColors.third,
@@ -118,7 +123,7 @@ class _ChatState extends State<Chat> {
                               );
                             } else {
                               return Text(
-                                snapshot.data["cname"],
+                                snapshot.data["uname"]+" "+snapshot.data["ulastname"],
                                 style: TextStyle(
                                     color: KColors.third, fontSize: 16),
                               );
@@ -282,6 +287,8 @@ class _ChatState extends State<Chat> {
                         color: KColors.popout,
                       ),
                       onPressed: () {
+                        if(_controller.text.isEmpty)
+                        return;
                         // scrolljump+=50;
                         // _scrollController.jumpTo(scrolljump);
                         String msg = _controller.text;
@@ -322,13 +329,13 @@ class _ChatState extends State<Chat> {
         alignment: Alignment.centerLeft,
         child: Container(
           decoration: BoxDecoration(
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    blurRadius: 5,
-                    color: Color.fromRGBO(20, 20, 20, 1),
-                    offset: Offset(0, 2)),
-              ],
-              color: KColors.secondary,
+              // boxShadow: <BoxShadow>[
+              //   BoxShadow(
+              //       blurRadius: 5,
+              //       color: Color.fromRGBO(20, 20, 20, 1),
+              //       offset: Offset(0, 2)),
+              // ],
+              color: Color.fromRGBO(64,67,71, 1),
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(20),
                   topLeft: Radius.circular(20),
@@ -347,12 +354,12 @@ class _ChatState extends State<Chat> {
         alignment: Alignment.centerRight,
         child: Container(
           decoration: BoxDecoration(
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    blurRadius: 5,
-                    color: Color.fromRGBO(20, 20, 20, 1),
-                    offset: Offset(0, 2)),
-              ],
+              // boxShadow: <BoxShadow>[
+              //   BoxShadow(
+              //       blurRadius: 5,
+              //       color: Color.fromRGBO(20, 20, 20, 1),
+              //       offset: Offset(0, 2)),
+              // ],
               color: KColors.popout,
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
