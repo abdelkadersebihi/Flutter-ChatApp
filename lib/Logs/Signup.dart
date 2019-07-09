@@ -101,7 +101,7 @@ class _SignupState extends State<Signup> {
                                         borderRadius: BorderRadius.circular(30),
                                       )),
                                   onSaved: (input) {
-                                    _uname = input;
+                                    _uname = input.trim();
                                   },
                                   validator: (input) {
                                     if (input.isEmpty) return 'provide a name!';
@@ -153,7 +153,7 @@ class _SignupState extends State<Signup> {
                                         borderRadius: BorderRadius.circular(30),
                                       )),
                                   onSaved: (input) {
-                                    _ulastname = input;
+                                    _ulastname = input.trim();
                                   },
                                   validator: (input) {
                                     if (input.isEmpty)
@@ -206,7 +206,7 @@ class _SignupState extends State<Signup> {
                                         borderRadius: BorderRadius.circular(30),
                                       )),
                                   onSaved: (input) {
-                                    _uemail = input;
+                                    _uemail = input.trim();
                                   },
                                   validator: (input) {
                                     if (input.isEmpty)
@@ -397,12 +397,33 @@ class _SignupState extends State<Signup> {
   }
 
   Future<void> validate() async {
+    BuildContext dialogCtx;
     if (key.currentState.validate()) {
       key.currentState.save();
+      showDialog(
+          context: context,
+          builder: (dcontext) {
+            dialogCtx = dcontext;
+            return SimpleDialog(
+              title: Text("Loading.."),
+              titlePadding: EdgeInsets.all(8),
+              contentPadding: EdgeInsets.all(12),
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 20, bottom: 20),
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ),
+                )
+              ],
+            );
+          });
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: this._uemail, password: this._upassword)
           .then((user) {
+        Navigator.of(dialogCtx).pop(true);
         //user.sendEmailVerification();
         Firestore.instance.runTransaction((tx) async {
           await tx
@@ -418,6 +439,7 @@ class _SignupState extends State<Signup> {
         });
         // Navigator.pop(context);
       }).catchError((onError) {
+        Navigator.of(dialogCtx).pop(true);
         showDialog(
             context: context,
             builder: (BuildContext ctx) {

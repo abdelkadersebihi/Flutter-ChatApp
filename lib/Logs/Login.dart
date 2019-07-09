@@ -56,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
         resizeToAvoidBottomPadding: false,
         body: Container(
           margin: MediaQuery.of(context).padding,
@@ -265,7 +264,7 @@ class _LoginPageState extends State<LoginPage> {
                                 : () async {
                                     setState(() => this._busy = true);
                                     await validate();
-                                    // await setState(() => this._busy = false);
+                                    setState(() => this._busy = false);
                                   },
                             borderRadius: BorderRadius.circular(30),
                             child: Container(

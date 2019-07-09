@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_pfe/Pages/Friends.dart';
 import 'package:chat_pfe/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,11 +20,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   PageController controller;
   int selected = 0;
-  String title = "Chating";
+  String title = "Home";
   @override
   void initState() {
     super.initState();
-    controller = new PageController();
+    controller = new PageController(initialPage: 0);
   }
 
   @override
@@ -36,12 +37,41 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        backgroundColor: KColors.primary,
         appBar: AppBar(
           backgroundColor: KColors.primary,
           elevation: 0,
-          title: Text(
-            title,
-            style: TextStyle(color: KColors.third, fontSize: 22),
+          title: Container(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 4, right: 8),
+                  child: StreamBuilder<DocumentSnapshot>(
+                    stream: firestore
+                        .collection("User")
+                        .document(firebaseUser.uid)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      return Container(
+                        child: CircleAvatar(
+                          backgroundImage:
+                              CachedNetworkImageProvider(snapshot.data["uimg"]),
+                          maxRadius: 20,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    title,
+                    style: TextStyle(color: KColors.third, fontSize: 22),
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             PopupMenuButton(
@@ -198,6 +228,25 @@ class _HomeState extends State<Home> {
           onTap: (index) {
             //Handle button tap
             // controller.jumpToPage(index);
+
+            switch (index) {
+              case 0:
+                setState(() {
+                  title = "Home";
+                });
+                break;
+              case 1:
+                setState(() {
+                  title = "Friends";
+                });
+                break;
+              case 2:
+                setState(() {
+                  title = "Profile";
+                });
+                break;
+              default:
+            }
             controller.animateToPage(index,
                 duration: Duration(milliseconds: 400), curve: Curves.ease);
           },

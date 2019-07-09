@@ -20,7 +20,6 @@ void main() {
     statusBarColor: KColors.primary,
   ));
   SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-
   runApp(MyApp());
 }
 
@@ -38,11 +37,11 @@ class MyAppState extends State<MyApp> {
       home: Router(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          fontFamily: 'product',
           cardColor: KColors.secondary,
           primaryColor: KColors.secondary,
           accentColor: KColors.primary,
-          backgroundColor: KColors.secondary
-          ),
+          backgroundColor: KColors.secondary),
     );
   }
 }

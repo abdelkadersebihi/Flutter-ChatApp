@@ -20,13 +20,18 @@ class _MessagesState extends State<Messages> {
           stream: firestore
               .collection("Chat")
               .where("cparts", arrayContains: firebaseUser.uid)
+              .orderBy("clastdate", descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData ||
                 snapshot.connectionState == ConnectionState.none ||
-                snapshot.connectionState == ConnectionState.waiting) {
+                snapshot.data.documents.length == 0) {
               return Center(
                   child: Text("No chats yet",
+                      style: TextStyle(color: KColors.fourth)));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                  child: Text("Loading..",
                       style: TextStyle(color: KColors.fourth)));
             } else {
               return ListView.builder(
