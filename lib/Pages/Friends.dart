@@ -44,11 +44,11 @@ class _FriendsState extends State<Friends> {
             }
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: KColors.popout,
-          child: Icon(LineIcons.pencil,),
-          onPressed: (){},
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   backgroundColor: KColors.popout,
+        //   child: Icon(LineIcons.pencil,),
+        //   onPressed: (){},
+        // ),
         // floatingActionButton: FloatingActionButton(
         //   elevation: 2,
         //   backgroundColor: KColors.secondary,

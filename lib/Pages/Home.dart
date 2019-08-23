@@ -93,9 +93,9 @@ class _HomeState extends State<Home> {
                   case 2:
                     _showHelpDialog();
                     break;
-                  case 3:
-                    _showGithubDialog();
-                    break;
+                  // case 3:
+                  //   _showGithubDialog();
+                  //   break;
 
                   default:
                 }
@@ -149,18 +149,18 @@ class _HomeState extends State<Home> {
                           )
                         ],
                       )),
-                  PopupMenuItem(
-                      value: 3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            "Github",
-                            style: TextStyle(color: KColors.third),
-                          ),
-                          Icon(LineIcons.share, color: KColors.fourth)
-                        ],
-                      )),
+                  // PopupMenuItem(
+                  //     value: 3,
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: <Widget>[
+                  //         Text(
+                  //           "Github",
+                  //           style: TextStyle(color: KColors.third),
+                  //         ),
+                  //         Icon(LineIcons.share, color: KColors.fourth)
+                  //       ],
+                  //     )),
                 ];
               },
             )
@@ -353,7 +353,7 @@ class _HomeState extends State<Home> {
             title: Text("About Project: chat_App!",
                 style: TextStyle(color: KColors.third)),
             content: Text(
-              "Products used Flutter & Firebase Paticipants: Sebihi Abdelkader & Merouani Abdenour thank you",
+              "Products used Flutter & Firebase by: Menaa Muhamed Elamine thank you",
               textAlign: TextAlign.center,
               style: TextStyle(color: KColors.fourth),
             ),
@@ -395,14 +395,14 @@ class _HomeState extends State<Home> {
         });
   }
 
-  void _showGithubDialog() async {
-    const url = 'https://github.com/aymensbh/Flutter-ChatApp';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  // void _showGithubDialog() async {
+  //   const url = 'https://github.com/aymensbh/Flutter-ChatApp';
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 }
 
 class EditPassword extends StatefulWidget {
