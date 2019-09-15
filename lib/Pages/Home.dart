@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:chat_pfe/Pages/Messages.dart';
 import 'package:chat_pfe/Pages/Profile.dart';
 import 'package:chat_pfe/Util/KColors.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -93,9 +92,6 @@ class _HomeState extends State<Home> {
                   case 2:
                     _showHelpDialog();
                     break;
-                  // case 3:
-                  //   _showGithubDialog();
-                  //   break;
 
                   default:
                 }
@@ -149,18 +145,6 @@ class _HomeState extends State<Home> {
                           )
                         ],
                       )),
-                  // PopupMenuItem(
-                  //     value: 3,
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //       children: <Widget>[
-                  //         Text(
-                  //           "Github",
-                  //           style: TextStyle(color: KColors.third),
-                  //         ),
-                  //         Icon(LineIcons.share, color: KColors.fourth)
-                  //       ],
-                  //     )),
                 ];
               },
             )
@@ -170,31 +154,9 @@ class _HomeState extends State<Home> {
           color: KColors.primary,
           child: PageView(
             physics: NeverScrollableScrollPhysics(),
-            // onPageChanged: (index) {
-            //   setState(() {
-            //    switch (index) {
-            //     case 0:
-            //      title="Profile";
-            //       break;
-            //     case 1:
-            //      title="Chats";
-            //       break;
-            //     case 2:
-            //      title="Search";
-            //       break;
-            //     case 3:
-            //      title="Contacts";
-            //       break;
-            //     default:
-            //   }
-            //   });
-            // },
             controller: controller,
             children: <Widget>[
               Messages(),
-              // Container(
-              //   color: KColors.primary,
-              // ),
               Friends(),
               Profile(
                 firebaseUserId: firebaseUser.uid,
@@ -213,11 +175,6 @@ class _HomeState extends State<Home> {
               size: 26,
               color: KColors.third,
             ),
-            // Icon(
-            //   LineIcons.search,
-            //   size: 24,
-            //   color: KColors.third,
-            // ),
             Icon(
               LineIcons.group,
               size: 26,
@@ -334,7 +291,6 @@ class _HomeState extends State<Home> {
                               ],
                             );
                           });
-                      // Navigator.pop(context);
                     },
                   ),
                 ),
@@ -394,15 +350,6 @@ class _HomeState extends State<Home> {
           );
         });
   }
-
-  // void _showGithubDialog() async {
-  //   const url = 'https://github.com/aymensbh/Flutter-ChatApp';
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
 }
 
 class EditPassword extends StatefulWidget {
@@ -450,22 +397,6 @@ class EditPasswordState extends State<EditPassword> {
               hintStyle: TextStyle(
                 color: KColors.fourth,
               ),
-              // enabledBorder: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(50),
-              //   borderSide: BorderSide(color: KColors.secondary),
-              // ),
-              // focusedBorder: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(50),
-              //   borderSide: BorderSide(color: KColors.secondary),
-              // ),
-              // errorBorder: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(50),
-              //   borderSide: BorderSide(color: KColors.lightPopout),
-              // ),
-              // focusedErrorBorder: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(50),
-              //   borderSide: BorderSide(color: KColors.secondary),
-              // ),
             ),
           ),
         ),

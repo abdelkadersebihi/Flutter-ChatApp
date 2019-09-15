@@ -318,67 +318,6 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
               ),
-              // Container(//tebda men
-              //   alignment: Alignment.center,
-              //   child: Text(
-              //     "Or",
-              //     style: TextStyle(
-              //         color: Colors.white,
-              //         fontFamily: 'product',
-              //         fontSize: 18,
-              //         fontWeight: FontWeight.bold),
-              //   ),
-              // ),
-              // Container(
-              //   margin: EdgeInsets.only(top: 28, left: 40, right: 40),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //     children: <Widget>[
-              //       Container(
-              //         padding: EdgeInsets.all(2),
-              //         decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(40),
-              //             border: Border.all(color: Colors.white, width: 2)),
-              //         child: CircleAvatar(
-              //           maxRadius: 28,
-              //           backgroundColor: Colors.transparent,
-              //           child: Icon(
-              //             GroovinMaterialIcons.facebook,
-              //             color: Colors.white,
-              //           ),
-              //         ),
-              //       ),
-              //       Container(
-              //         padding: EdgeInsets.all(2),
-              //         decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(40),
-              //             border: Border.all(color: Colors.white, width: 2)),
-              //         child: CircleAvatar(
-              //           maxRadius: 28,
-              //           backgroundColor: Colors.transparent,
-              //           child: Icon(
-              //             GroovinMaterialIcons.google,
-              //             color: Colors.white,
-              //           ),
-              //         ),
-              //       ),
-              //       Container(
-              //         padding: EdgeInsets.all(2),
-              //         decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(40),
-              //             border: Border.all(color: Colors.white, width: 2)),
-              //         child: CircleAvatar(
-              //           maxRadius: 28,
-              //           backgroundColor: Colors.transparent,
-              //           child: Icon(
-              //             GroovinMaterialIcons.twitter,
-              //             color: Colors.white,
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
               Container(
                   margin: EdgeInsets.only(top: 8),
                   child: IconButton(
@@ -423,7 +362,6 @@ class _SignupState extends State<Signup> {
               email: this._uemail, password: this._upassword)
           .then((user) {
         Navigator.of(dialogCtx).pop(true);
-        //user.sendEmailVerification();
         Firestore.instance.runTransaction((tx) async {
           await tx
               .set(Firestore.instance.collection("User").document(user.uid), {
@@ -436,7 +374,6 @@ class _SignupState extends State<Signup> {
             "ubio": this._ubio
           });
         });
-        // Navigator.pop(context);
       }).catchError((onError) {
         Navigator.of(dialogCtx).pop(true);
         showDialog(

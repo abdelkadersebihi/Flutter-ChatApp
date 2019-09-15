@@ -103,16 +103,7 @@ class _ProfileState extends State<Profile> {
                                         maxRadius: 180,
                                         backgroundImage:
                                             CachedNetworkImageProvider(
-                                                snapshot.data["uimg"]),
-                                        // child: CachedNetworkImage(
-                                        //   fit: BoxFit.cover,
-                                        //   imageUrl: snapshot.data["uimg"],
-                                        //   placeholder: (crx, url) {
-                                        //     return CircularProgressIndicator(
-                                        //       strokeWidth: 2,
-                                        //     );
-                                        //   },
-                                        // ),
+                                                snapshot.data["uimg"]),//firebase url
                                       ))),
                             );
                           }

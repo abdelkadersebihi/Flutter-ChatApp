@@ -45,17 +45,6 @@ class _MessagesState extends State<Messages> {
             }
           },
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   elevation: 2,
-        //   backgroundColor: KColors.secondary,
-        //   child: Icon(
-        //     Icons.create,
-        //     color: KColors.popout,
-        //   ),
-        //   onPressed: () {
-        //     firebaseAuth.signOut();
-        //   },
-        // ),
       ),
     );
   }

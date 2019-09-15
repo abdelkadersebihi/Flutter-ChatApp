@@ -289,8 +289,6 @@ class _ChatState extends State<Chat> {
                       onPressed: () {
                         if(_controller.text.isEmpty)
                         return;
-                        // scrolljump+=50;
-                        // _scrollController.jumpTo(scrolljump);
                         String msg = _controller.text;
                         _controller.clear();
 

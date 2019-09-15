@@ -92,11 +92,6 @@ class _MsgState extends State<Msg> {
                             Color.fromRGBO(76, 184, 196, 1),
                             Color.fromRGBO(60, 211, 173, 1)
                           ]),
-                      // gradient: LinearGradient(
-                      //   colors: [KColors.popout, KColors.popout],
-                      //   begin: Alignment.topLeft,
-                      //   end: Alignment.bottomRight,
-                      // ),
                       borderRadius: BorderRadius.circular(40)),
                   padding: EdgeInsets.all(1),
                   margin:
@@ -117,7 +112,6 @@ class _MsgState extends State<Msg> {
                           backgroundImage: CachedNetworkImageProvider(
                             snapshot.data["uimg"],
                           ),
-                          // backgroundColor: KColors.primary,
                           maxRadius: 32,
                         );
                       }

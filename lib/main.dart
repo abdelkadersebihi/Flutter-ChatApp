@@ -63,11 +63,6 @@ class RouterState extends State<Router> {
           firebaseUser = snapshot.data;
           print(firebaseUser.uid);
           firestore.runTransaction((transactionHandler) async {
-            // await firestore
-            //     .collection("User")
-            //     .document(firebaseUser.uid)
-            //     .updateData({"utag": true});
-
             userDocument = await firestore
                 .collection("User")
                 .document(firebaseUser.uid)

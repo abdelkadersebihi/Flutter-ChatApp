@@ -252,14 +252,6 @@ class UserState extends State<User> {
                         });
                       });
                     }
-                        // ).catchError((onError){
-                        //   showBottomSheet(
-                        //     context: context,
-                        //     builder: (BuildContext context){
-                        //       return Text(onError);
-                        //     }
-                        //   );
-                        // }
                         );
                     Navigator.pop(context);
                   }
@@ -270,5 +262,4 @@ class UserState extends State<User> {
         });
   }
 
-  // Future<void> edit(GlobalKey<FormState> formKey) async {}
 }
